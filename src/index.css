@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&display=swap');
 
+:root {
+  --background-image: url('./assets//background-lg.jpg');
+}
+
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
@@ -13,7 +17,9 @@ body {
   height: inherit;
 }
 
-p, h2, h1 {
+p,
+h2,
+h1 {
   margin: 0;
 }
 
@@ -26,6 +32,9 @@ header {
   background-color: gray;
   color: white;
   padding: 2em;
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), var(--background-image);
 }
 
 main {
@@ -54,4 +63,10 @@ svg {
   display: block;
   width: 2em;
   height: 2em;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --background-image: url('./assets//background-sm.jpg');
+  }
 }
