@@ -1,0 +1,20 @@
+.count {
+    text-align: center;
+    font-weight: bold;
+    padding: 1em 0;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    justify-content: center;
+}
+
+.loading {
+    text-align: center;
+}
+
+.load_more_btn {
+    margin-bottom: 2em;
+}

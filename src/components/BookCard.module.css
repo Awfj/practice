@@ -1,0 +1,30 @@
+.card {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    background-color: #f3f2f1;
+}
+
+.card>img {
+    box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.50);
+    width: 150px;
+    margin: 0 auto 2.5em;
+}
+
+.card p:not(.author),
+.card h2 {
+    margin-bottom: 1em;
+}
+
+.card>h2 {
+    color: black;
+}
+
+.card>p {
+    color: #929292;
+}
+
+.card>.category {
+    text-decoration: underline;
+}

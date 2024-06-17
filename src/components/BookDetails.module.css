@@ -1,0 +1,35 @@
+.book_details {
+    display: flex;
+    height: 100%;
+}
+
+.book_details>div {
+    background-color: #f3f2f1;
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book_details>section {
+    padding: 4em;
+    flex: 3;
+}
+
+.cover {
+    width: 350px;
+}
+
+.category {
+    margin-bottom: 2em;
+}
+
+.title {
+    margin-bottom: 1em;
+    font-size: 2em;
+}
+
+.author {
+    margin-bottom: 1em;
+    text-decoration: underline;
+}

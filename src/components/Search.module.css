@@ -1,0 +1,39 @@
+.search {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+
+.searchInput {
+    background-color: white;
+    display: flex;
+}
+
+.searchMisc {
+    display: flex;
+    gap: 1.5em;
+}
+
+.search input,
+.search button {
+    background-color: transparent;
+    border: none;
+}
+
+.search input {
+    padding: 1em;
+    font-weight: bold;
+}
+
+.search button {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.search button:hover {
+    background-color: black;
+    color: white;
+    fill: white;
+    outline: 1px solid black;
+}
