@@ -21,11 +21,11 @@ export default function BookList() {
 
             {status === 'loading' && <div className={styles.loading}>Loading...</div>}
             {status === 'succeeded' && (
-                <ul className={styles.book_list}>
+                <div className={styles.book_list}>
                     {books.map((book) => (
                         <BookCard key={book.id} book={book} />
                     ))}
-                </ul>
+                </div>
             )}
             {status === 'failed' && <div>Error loading books.</div>}
             {total > 0 && status === 'succeeded' && <button className={styles.load_more_btn} onClick={handleLoadMore}>Load more</button>}
