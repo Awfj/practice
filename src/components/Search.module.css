@@ -25,7 +25,8 @@
     transition: all 0.3s ease-in-out;
 }
 
-.input_group button:hover {
+.input_group button:hover,
+.input_group button:focus-visible {
     background-color: black;
     color: white;
     fill: white;
