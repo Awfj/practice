@@ -3,14 +3,14 @@
     display: flex;
     flex-direction: column;
     padding: 1.5em;
-    background-color: #f3f2f1;
+    background-color: var(--background-primary);
     transition: all 0.08s ease-in-out;
 }
 
 .card:hover,
 .card:focus-visible {
-    outline: 2px solid black;
-    background-color: white;
+    outline: 2px solid var(--background-tertiary);
+    background-color: var(--background-secondary);
 }
 
 .card>img {
@@ -25,11 +25,11 @@
 }
 
 .card>h2 {
-    color: black;
+    color: var(--color-secondary);
 }
 
 .card>p {
-    color: #929292;
+    color: var(--color-primary);
 }
 
 .card>.category {

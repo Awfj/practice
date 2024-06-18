@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import 'normalize.css/normalize.css';
 
 import Search from './components/Search';
@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Router>
       <header>
-        <h1>Search for books</h1>
+        <h1><Link to="/">Search for books</Link></h1>
         <Search />
       </header>
 

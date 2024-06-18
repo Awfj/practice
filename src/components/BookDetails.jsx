@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { selectBookById } from '../state/booksSlice';
 import styles from './BookDetails.module.css';
 
@@ -33,10 +33,16 @@ export default function BookDetails() {
                         {displayBook.volumeInfo.categories && <p className={styles.category}>{displayBook.volumeInfo.categories.join(', ')}</p>}
                         <h2 className={styles.title}>{displayBook.volumeInfo.title}</h2>
                         {displayBook.volumeInfo.authors && <p className={styles.author}>{displayBook.volumeInfo.authors.join(', ')}</p>}
-                        <p className={styles.description}>{displayBook.volumeInfo.description}</p>
-                    </section>
-                </div>
-            )}
+                        <div className={styles.description}>
+                            {displayBook.volumeInfo.description.split(/(?<=[.!?])\s+(?=[A-Z])/).map((paragraph, index) => (
+                                <p key={index}>{paragraph.trim()}</p>
+                            ))}
+                        </div>
+                        <button className={styles.back_btn}><Link to="/">Back</Link></button>
+                    </section >
+                </div >
+            )
+            }
         </>
     )
 }

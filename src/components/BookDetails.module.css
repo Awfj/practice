@@ -4,16 +4,22 @@
 }
 
 .book_details>div {
-    background-color: #f3f2f1;
-    flex: 2;
+    background-color: var(--background-primary);
+    flex: 2.36;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .book_details>section {
-    padding: 4em;
+    display: flex;
+    flex-direction: column;
     flex: 3;
+}
+
+.book_details>div,
+.book_details>section {
+    padding: 3.7rem 3.6rem;
 }
 
 .cover {
@@ -21,15 +27,46 @@
 }
 
 .category {
-    margin-bottom: 2em;
+    margin-bottom: 2.6em;
 }
 
 .title {
-    margin-bottom: 1em;
+    margin-bottom: 0.56em;
     font-size: 2em;
 }
 
 .author {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     text-decoration: underline;
+    color: var(--color-primary);
+}
+
+.description {
+    text-indent: 2em;
+    border: 1px solid #e6e5e4;
+    padding: 1.6rem 1rem;
+    font-size: 1.1em;
+    margin-bottom: 2em;
+}
+
+.back_btn {
+    border: none;
+    background-color: var(--background-primary);
+    padding: 0.32em 0.5em;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.08s ease-in-out;
+    margin-left: auto;
+}
+
+.back_btn a {
+    display: block;
+    color: var(--background-tertiary);
+}
+
+.back_btn:hover,
+.back_btn:focus-visible {
+    background-color: var(--background-secondary);
+    outline: 2px solid var(--background-tertiary);
 }

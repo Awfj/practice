@@ -2,12 +2,17 @@
 
 :root {
   --background-image: url('./assets//background-lg.jpg');
+  --color-primary: #929292;
+  --color-secondary: #000;
+  --color-tertiary: #fff;
+  --background-primary: #f3f2f1;
+  --background-secondary: #fff;
+  --background-tertiary: #000;
 }
 
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
-  /* letter-spacing: 0.01875em; */
 }
 
 body {
@@ -31,8 +36,8 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: gray;
-  color: white;
+  background-color: var(--background-primary);
+  color: var(--color-tertiary);
   padding: 2em;
   background-size: cover;
   background-position: center;
@@ -48,6 +53,15 @@ main {
 h1 {
   font-size: 3em;
   margin-bottom: 0.84em;
+}
+
+h1>a {
+  color: var(--color-tertiary);
+  transition: color 0.2s ease-in-out;
+}
+
+h1:hover>a {
+  color: var(--color-primary);
 }
 
 ul {
