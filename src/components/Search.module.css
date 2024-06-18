@@ -2,12 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.45rem;;
+    gap: 1.45rem;
+    ;
 }
 
 .input_group {
     background-color: white;
     display: flex;
+    justify-content: space-between;
 }
 
 .input_group input {
@@ -52,4 +54,49 @@
     font-size: 1.1em;
     font-weight: bold;
     margin-left: 0.35em;
+}
+
+@media (max-width: 960px) {
+    .input_group input {
+        width: 60vw;
+    }
+    
+    .select_group {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+@media (max-width: 640px) {
+    .input_group input {
+        font-size: 1.3em;
+        width: 60vw;
+    }
+
+    .select_group label {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .input_group {
+        width: 75vw;
+    }
+
+    .input_group input {
+        width: 62vw;
+        padding: 0.32em 0.5em;
+    }
+
+    .select_group label {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    .select_group select {
+        margin-top: 0.5em;
+        margin-left: 0;
+        width: 75vw;
+    }
 }

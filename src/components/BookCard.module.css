@@ -28,3 +28,9 @@
 .card>.category {
     text-decoration: underline;
 }
+
+@media (max-width: 640px) {
+    .card>h2 {
+        font-size: 1.2em;
+    }
+}

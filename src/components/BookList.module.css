@@ -9,7 +9,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2.8rem;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 2.5rem;
     padding: 0 1.3rem;
 }
@@ -20,4 +20,19 @@
 
 .load_more_btn {
     margin-bottom: 2em;
+}
+
+@media (max-width: 640px) {
+    .count {
+        font-size: 1em;
+    }
+
+    .book_list {
+        margin-top: 2rem;
+        gap: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
 }
