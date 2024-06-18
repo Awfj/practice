@@ -28,7 +28,7 @@ export default function BookList() {
                 </div>
             )}
             {status === 'failed' && <div>Error loading books.</div>}
-            {total > 0 && status === 'succeeded' && <button className={styles.load_more_btn} onClick={handleLoadMore}>Load more</button>}
+            {total > 0 && status === 'succeeded' && <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>}
         </>
     )
 }

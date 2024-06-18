@@ -30,6 +30,10 @@
 }
 
 @media (max-width: 640px) {
+    .card {
+        width: 16rem;
+    }
+
     .card>h2 {
         font-size: 1.2em;
     }
