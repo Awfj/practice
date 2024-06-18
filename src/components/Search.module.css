@@ -1,39 +1,55 @@
 .search {
     display: flex;
     flex-direction: column;
-    gap: 1em;
     align-items: center;
+    gap: 1.45rem;;
 }
 
-.searchInput {
+.input_group {
     background-color: white;
     display: flex;
 }
 
-.searchMisc {
-    display: flex;
-    gap: 1.5em;
-}
-
-.search input,
-.search button {
-    background-color: transparent;
-    border: none;
-}
-
-.search input {
-    padding: 1em;
+.input_group input {
+    width: 36.125rem;
+    padding: 0.32em 0.2em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 
-.search button {
+.input_group button {
+    padding: 0 0.4em;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
 
-.search button:hover {
+.input_group button:hover {
     background-color: black;
     color: white;
     fill: white;
     outline: 1px solid black;
+}
+
+.input_group input,
+.input_group button {
+    background-color: transparent;
+    border: none;
+}
+
+.select_group {
+    display: flex;
+    gap: 1.4rem;
+}
+
+.select_group label {
+    font-size: 1.2em;
+    letter-spacing: normal;
+}
+
+.select_group select {
+    width: 14.375rem;
+    padding: 0.28em 0.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-left: 0.35em;
 }

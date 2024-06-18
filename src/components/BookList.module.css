@@ -1,14 +1,17 @@
 .count {
     text-align: center;
     font-weight: bold;
-    padding: 1em 0;
+    padding-top: 1.05em;
+    font-size: 1.1em;
 }
 
-.books {
+.book_list {
     display: flex;
     flex-wrap: wrap;
-    gap: 2em;
-    justify-content: center;
+    gap: 2.8rem;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+    padding: 0 1.3rem;
 }
 
 .loading {

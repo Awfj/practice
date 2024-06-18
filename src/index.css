@@ -7,6 +7,7 @@
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  /* letter-spacing: 0.01875em; */
 }
 
 body {
@@ -15,6 +16,7 @@ body {
 
 #root {
   height: inherit;
+  letter-spacing: 0.01875rem;
 }
 
 p,
@@ -24,7 +26,8 @@ h1 {
 }
 
 header {
-  min-height: 30vh;
+  /* min-height: 28.4vh; */
+  height: 16.9375rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,7 +37,7 @@ header {
   padding: 2em;
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), var(--background-image);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), var(--background-image);
 }
 
 main {
@@ -44,25 +47,23 @@ main {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 3em;
+  margin-bottom: 0.84em;
 }
 
-header h1 {
-  margin-bottom: 1em;
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 a {
   text-decoration: none;
 }
 
-select {
-  margin-left: 0.5em;
-}
-
 svg {
   display: block;
-  width: 2em;
-  height: 2em;
+  width: 1.9em;
+  height: 1.9em;
 }
 
 @media (max-width: 640px) {
