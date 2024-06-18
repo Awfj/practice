@@ -25,7 +25,7 @@ export default function Search() {
 
     return (
         <form className={styles.search} onSubmit={handleSearch}>
-            <div className={styles.searchInput}>
+            <div className={styles.input_group}>
                 <input
                     name="title"
                     type="text"
@@ -39,7 +39,7 @@ export default function Search() {
                 </button>
             </div>
 
-            <div className={styles.searchMisc}>
+            <div className={styles.select_group}>
                 <label>
                     Categories
                     <select

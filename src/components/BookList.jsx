@@ -21,7 +21,7 @@ export default function BookList() {
 
             {status === 'loading' && <div className={styles.loading}>Loading...</div>}
             {status === 'succeeded' && (
-                <ul className={styles.books}>
+                <ul className={styles.book_list}>
                     {books.map((book) => (
                         <BookCard key={book.id} book={book} />
                     ))}
