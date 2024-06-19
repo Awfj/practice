@@ -16,6 +16,9 @@
 
 .loading {
     text-align: center;
+    font-weight: bold;
+    padding-top: 1.05em;
+    font-size: 1.1em;
 }
 
 .load_more_btn {

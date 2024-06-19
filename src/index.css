@@ -79,6 +79,12 @@ svg {
   height: 1.9em;
 }
 
+.error {
+  font-weight: bold;
+  padding-top: 1.05em;
+  font-size: 1.1em;
+}
+
 @media (max-width: 960px) {
   header {
     height: 21rem;
