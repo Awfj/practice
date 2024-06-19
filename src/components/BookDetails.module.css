@@ -83,11 +83,49 @@
         flex-direction: column;
     }
 
-    .book_details>div {
-        padding: 2rem 3.6rem;
+    .book_details>div,
+    .book_details>section {
+        padding: 2rem 3rem;
+    }
+
+    .title {
+        font-size: 1.5em;
     }
 
     .cover {
         width: 200px;
+    }
+
+    .category {
+        margin-bottom: 2em;
+    }
+}
+
+@media (max-width: 640px) {
+    .title {
+        font-size: 1.3em;
+    }
+
+    .description {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .book_details>div,
+    .book_details>section {
+        padding: 2rem 1.2rem;
+    }
+
+    .cover {
+        width: 150px;
+    }
+
+    .title {
+        font-size: 1.1em;
+    }
+
+    .category {
+        margin-bottom: 1.5em;
     }
 }
