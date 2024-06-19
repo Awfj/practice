@@ -43,6 +43,10 @@ export const booksSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(resetStartIndex, (state) => {
+                state.startIndex = 0;
+            })
+            // Cases for fetching books
             .addCase(fetchBooks.pending, (state) => {
                 state.status = 'loading';
             })
@@ -53,7 +57,7 @@ export const booksSlice = createSlice({
                 } else {
                     state.books = action.payload.items || [];
                 }
-                state.loadMoreClicked = false;
+                state.loadMore = false;
                 state.total = action.payload.totalItems;
                 state.error = null;
             })
@@ -61,9 +65,8 @@ export const booksSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.payload;
             })
-            .addCase(resetStartIndex, (state) => {
-                state.startIndex = 0;
-            })
+
+            // Cases for fetching a single book
             .addCase(fetchBookById.pending, (state) => {
                 state.status = 'loading';
             })
