@@ -26,14 +26,14 @@ export default function BookList() {
                     {status !== 'loading' && <p className={styles.count}>{total === 0 ? "No books found." : `Found ${total} results`}</p>}
 
                     {status === 'loading' && <div className={styles.loading}>Loading...</div>}
-                    {status === 'succeeded' && (
+                    {status !== 'failed' && (
                         <div className={styles.book_list}>
                             {books.map((book) => (
                                 <BookCard key={book.id} book={book} />
                             ))}
                         </div>
                     )}
-                    {total > 0 && status === 'succeeded' &&
+                    {total > 0 && status !== 'failed' &&
                         <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>}
                 </>
             )}
