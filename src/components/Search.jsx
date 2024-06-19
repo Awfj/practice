@@ -14,9 +14,13 @@ export default function Search() {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        dispatch(resetStartIndex());
-        dispatch(fetchBooks());
-        navigate('/'); 
+        
+        if (title.trim() !== '') {
+            dispatch(resetStartIndex());
+            dispatch(fetchBooks());
+            navigate('/');
+        }
+
     }
 
     return (
