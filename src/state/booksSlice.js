@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { BOOKS_TO_LOAD } from '../constants';
 import { fetchBooks, fetchBookById, resetStartIndex } from './actions';
+import { CATEGORIES, SORTING } from '../constants';
 
 const initialState = {
     books: [],
     status: 'idle',
     total: 0,
     title: '',
-    category: 'all',
-    sorting: 'relevance',
+    category: CATEGORIES[0],
+    sorting: SORTING[0],
     startIndex: 0,
     loadMore: false,
     fetchedBook: null,
