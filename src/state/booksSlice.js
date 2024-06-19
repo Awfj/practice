@@ -6,13 +6,13 @@ const initialState = {
     books: [],
     status: 'idle',
     total: 0,
-    term: 'js',
+    title: '',
     category: 'all',
     sorting: 'relevance',
     startIndex: 0,
     loadMore: false,
     fetchedBook: null,
-    error: null
+    error: null,
 }
 
 export const booksSlice = createSlice({
@@ -25,8 +25,8 @@ export const booksSlice = createSlice({
         loadMoreBooks: (state) => {
             state.loadMore = true;
         },
-        setTerm: (state, action) => {
-            state.term = action.payload;
+        setTitle: (state, action) => {
+            state.title = action.payload;
         },
         setCategory: (state, action) => {
             state.category = action.payload;
@@ -65,7 +65,6 @@ export const booksSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.payload;
             })
-
             // Cases for fetching a single book
             .addCase(fetchBookById.pending, (state) => {
                 state.status = 'loading';
@@ -83,5 +82,5 @@ export const booksSlice = createSlice({
     }
 })
 
-export const { setTerm, setCategory, setSorting, loadMoreBooks, incrementStartIndex } = booksSlice.actions
+export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex } = booksSlice.actions
 export default booksSlice.reducer;

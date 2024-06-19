@@ -10,6 +10,7 @@ export default function BookList() {
     const total = useSelector((state) => state.books.total);
     const status = useSelector((state) => state.books.status);
     const error = useSelector((state) => state.books.error);
+    const loadMore = useSelector((state) => state.books.loadMore);
 
     const handleLoadMore = () => {
         dispatch(loadMoreBooks());
@@ -23,9 +24,9 @@ export default function BookList() {
                 <p className="error">{error}</p>
             ) : (
                 <>
-                    {status !== 'loading' && <p className={styles.count}>{total === 0 ? "No books found." : `Found ${total} results`}</p>}
+                    {(status !== 'loading' || loadMore) && <p className={styles.count}>{total === 0 ? "No books found." : `Found ${total} results`}</p>}
 
-                    {status === 'loading' && <div className={styles.loading}>Loading...</div>}
+                    {!loadMore && status === 'loading' && <div className={styles.loading_top}>Loading...</div>}
                     {status !== 'failed' && (
                         <div className={styles.book_list}>
                             {books.map((book) => (
@@ -33,8 +34,13 @@ export default function BookList() {
                             ))}
                         </div>
                     )}
+
                     {total > 0 && status !== 'failed' &&
-                        <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>}
+                        (loadMore && status === 'loading'
+                            ? <div className={styles.loading_bottom}>Loading...</div>
+                            : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
+                        )
+                    }
                 </>
             )}
         </>

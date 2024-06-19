@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setCategory, setTerm, setSorting } from '../state/booksSlice';
+import { setCategory, setTitle, setSorting } from '../state/booksSlice';
 import { fetchBooks, resetStartIndex } from '../state/actions';
 import styles from './Search.module.css';
 
@@ -9,8 +8,7 @@ export default function Search() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const booksStatus = useSelector((state) => state.books.status);
-    const title = useSelector((state) => state.books.term);
+    const title = useSelector((state) => state.books.title);
     const category = useSelector((state) => state.books.category);
     const sorting = useSelector((state) => state.books.sorting);
 
@@ -21,12 +19,6 @@ export default function Search() {
         navigate('/'); 
     }
 
-    useEffect(() => {
-        if (booksStatus === 'idle') {
-            dispatch(fetchBooks(title, category));
-        }
-    }, [booksStatus, dispatch, title, category]);
-
     return (
         <form className={styles.search} onSubmit={handleSearch}>
             <div className={styles.input_group}>
@@ -34,7 +26,7 @@ export default function Search() {
                     name="title"
                     type="text"
                     value={title}
-                    onChange={(e) => dispatch(setTerm(e.target.value))}
+                    onChange={(e) => dispatch(setTitle(e.target.value))}
                     placeholder="Enter book title" />
                 <button aria-label="Search Books" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">

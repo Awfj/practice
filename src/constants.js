@@ -1,1 +1,1 @@
-export const BOOKS_TO_LOAD = 4;
+export const BOOKS_TO_LOAD = 30;

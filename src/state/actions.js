@@ -5,9 +5,9 @@ import { BOOKS_TO_LOAD } from '../constants';
 // Fetch books from the Google Books API
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getState, rejectWithValue }) => {
     try {
-        const { term, sorting, category, startIndex } = getState().books;
+        const { title, sorting, category, startIndex } = getState().books;
 
-        let titlePart = `volumes?q=${term}`;
+        let titlePart = `volumes?q=${title}`;
         let sortingPart = `orderBy=${sorting}`;
         let categoryPart = category === "all" ? "" : `+subject:${category}`;
         let startIndexPart = `startIndex=${startIndex}`;
