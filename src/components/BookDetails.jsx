@@ -1,48 +1,63 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
-import { selectBookById } from '../state/booksSlice';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { fetchBookById, selectBookById } from '../state/actions';
 import styles from './BookDetails.module.css';
 
 export default function BookDetails() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { id } = useParams();
-    const book = useSelector(state => selectBookById(state, id));
-    const [bookDetails, setBookDetails] = useState(null);
 
+    const storedBook = useSelector(state => selectBookById(state, id));
+    const fetchedBook = useSelector(state => state.books.fetchedBook);
+    const error = useSelector(state => state.books.error);
+
+    // Fetch book details from Google Books API
     useEffect(() => {
-        if (!book) {
-            fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
-                .then(response => response.json())
-                .then(data => setBookDetails(data));
+        if (!storedBook) {
+            dispatch(fetchBookById(id));
         }
-    }, [id, book]);
+    }, [id, storedBook, dispatch]);
 
-    const displayBook = book || bookDetails;
+    // Scroll to top of the page when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    // If book is not found in the store, display book details fetched from the API
+    const book = storedBook || fetchedBook;
 
     return (
         <>
-            {displayBook && (
-                <div className={styles.book_details}>
-                    <div>
-                        {displayBook.volumeInfo.imageLinks && (
-                            <img className={styles.cover} src={displayBook.volumeInfo.imageLinks.thumbnail} alt={displayBook.volumeInfo.title} />
-                        )}
-                    </div>
-
-                    <section>
-                        {displayBook.volumeInfo.categories && <p className={styles.category}>{displayBook.volumeInfo.categories.join(', ')}</p>}
-                        <h2 className={styles.title}>{displayBook.volumeInfo.title}</h2>
-                        {displayBook.volumeInfo.authors && <p className={styles.author}>{displayBook.volumeInfo.authors.join(', ')}</p>}
-                        <div className={styles.description}>
-                            {displayBook.volumeInfo.description.split(/(?<=[.!?])\s+(?=[A-Z])/).map((paragraph, index) => (
-                                <p key={index}>{paragraph.trim()}</p>
-                            ))}
+            {error ? (
+                <p className='error'>{error}</p>
+            ) : (
+                book && (
+                    <div className={styles.book_details}>
+                        <div>
+                            {book.volumeInfo.imageLinks && (
+                                <img className={styles.cover} src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
+                            )}
                         </div>
-                        <button className={styles.back_btn}><Link to="/">Back</Link></button>
-                    </section >
-                </div >
-            )
-            }
+
+                        <section>
+                            {book.volumeInfo.categories && <p className={styles.category}>{book.volumeInfo.categories.join(', ')}</p>}
+
+                            <h2 className={styles.title}>{book.volumeInfo.title}</h2>
+
+                            {book.volumeInfo.authors && <p className={styles.author}>{book.volumeInfo.authors.join(', ')}</p>}
+                            {book.volumeInfo.description && <div className={styles.description}>
+                                {/* Remove HTML tags and split the description into paragraphs */}
+                                {book.volumeInfo.description.replace(/<[^>]*>?/gm, '').split(/(?<=[.!?])\s+(?=[A-Z])/).map((paragraph, index) => (
+                                    <p key={index}>{paragraph}</p>
+                                ))}
+                            </div>}
+                            <button className={styles.back_btn} onClick={() => navigate(-1)}>Back</button>
+                        </section >
+                    </div >
+                )
+            )}
         </>
     )
 }

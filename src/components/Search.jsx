@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchBooks, setCategory, setTerm, setSorting, resetStartIndex } from '../state/booksSlice';
+import { useNavigate } from 'react-router-dom';
+import { setCategory, setTerm, setSorting } from '../state/booksSlice';
+import { fetchBooks, resetStartIndex } from '../state/actions';
 import styles from './Search.module.css';
 
 export default function Search() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const booksStatus = useSelector((state) => state.books.status);
     const title = useSelector((state) => state.books.term);
@@ -15,6 +18,7 @@ export default function Search() {
         e.preventDefault();
         dispatch(resetStartIndex());
         dispatch(fetchBooks());
+        navigate('/'); 
     }
 
     useEffect(() => {

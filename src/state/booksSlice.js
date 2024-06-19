@@ -1,36 +1,17 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const BOOKS_TO_LOAD = 4;
-
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getState }) => {
-    const { term, sorting, category, startIndex } = getState().books;
-
-    let titlePart = `volumes?q=${term}`;
-    let sortingPart = `orderBy=${sorting}`;
-    let categoryPart = category === "all" ? "" : `+subject:${category}`;
-    let startIndexPart = `startIndex=${startIndex}`;
-    let maxResultsPart = `maxResults=${BOOKS_TO_LOAD}`;
-    let keyPart = `key=${import.meta.env.VITE_API_KEY}`;
-
-    const response = await axios.get(`https://www.googleapis.com/books/v1/${titlePart}${categoryPart}&${sortingPart}&${startIndexPart}&${maxResultsPart}&${keyPart}`);
-    return response.data;
-});
-
-export const resetStartIndex = createAction('books/resetStartIndex');
-
-export const selectBookById = (state, bookId) =>
-    state.books.books.find(book => book.id === bookId);
+import { createSlice } from '@reduxjs/toolkit';
+import { BOOKS_TO_LOAD } from '../constants';
+import { fetchBooks, fetchBookById, resetStartIndex } from './actions';
 
 const initialState = {
     books: [],
     status: 'idle',
     total: 0,
-    term: 'react',
+    term: 'js',
     category: 'all',
     sorting: 'relevance',
     startIndex: 0,
     loadMore: false,
+    fetchedBook: null,
     error: null
 }
 
@@ -52,7 +33,13 @@ export const booksSlice = createSlice({
         },
         setSorting: (state, action) => {
             state.sorting = action.payload;
-        }
+        },
+        setFetchedBook: (state, action) => {
+            state.fetchedBook = action.payload;
+        },
+        setError: (state, action) => {
+            state.error = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -68,13 +55,27 @@ export const booksSlice = createSlice({
                 }
                 state.loadMoreClicked = false;
                 state.total = action.payload.totalItems;
+                state.error = null;
             })
             .addCase(fetchBooks.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message;
+                state.error = action.payload;
             })
             .addCase(resetStartIndex, (state) => {
                 state.startIndex = 0;
+            })
+            .addCase(fetchBookById.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchBookById.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.fetchedBook = action.payload;
+                state.error = null;
+            })
+            .addCase(fetchBookById.rejected, (state, action) => {
+                console.log(action.payload)
+                state.status = 'failed';
+                state.error = action.payload;
             });
     }
 })
