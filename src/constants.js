@@ -1,0 +1,1 @@
+export const BOOKS_TO_LOAD = 4;
