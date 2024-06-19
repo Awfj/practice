@@ -4,32 +4,128 @@
 }
 
 .book_details>div {
-    background-color: #f3f2f1;
-    flex: 2;
+    background-color: var(--background-primary);
+    flex: 2.36;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .book_details>section {
-    padding: 4em;
+    display: flex;
+    flex-direction: column;
     flex: 3;
 }
 
+.book_details img {
+    box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.50);
+}
+
+.book_details>div,
+.book_details>section {
+    padding: 3.7rem 3.6rem;
+}
+
 .cover {
-    width: 350px;
+    width: 20vw;
+    max-width: 300px;
 }
 
 .category {
-    margin-bottom: 2em;
+    margin-bottom: 2.6em;
 }
 
 .title {
-    margin-bottom: 1em;
+    margin-bottom: 0.56em;
     font-size: 2em;
 }
 
 .author {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     text-decoration: underline;
+    color: var(--color-primary);
+}
+
+.description {
+    text-indent: 2em;
+    border: 1px solid #e6e5e4;
+    padding: 1.6rem 1rem;
+    font-size: 1.1em;
+    margin-bottom: 2em;
+}
+
+.back_btn {
+    border: none;
+    background-color: var(--background-primary);
+    padding: 0.32em 0.5em;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.08s ease-in-out;
+    margin-left: auto;
+    color: var(--background-tertiary);
+}
+
+.back_btn:hover,
+.back_btn:focus-visible {
+    background-color: var(--background-secondary);
+    outline: 2px solid var(--background-tertiary);
+}
+
+@media (max-width: 1200px) {
+    .book_details>div {
+        flex: 1;
+    }
+}
+
+@media (max-width: 960px) {
+    .book_details {
+        flex-direction: column;
+    }
+
+    .book_details>div,
+    .book_details>section {
+        padding: 2rem 3rem;
+    }
+
+    .title {
+        font-size: 1.5em;
+    }
+
+    .cover {
+        width: 200px;
+    }
+
+    .category {
+        margin-bottom: 2em;
+    }
+}
+
+@media (max-width: 640px) {
+    .title {
+        font-size: 1.3em;
+    }
+
+    .description {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .book_details>div,
+    .book_details>section {
+        padding: 2rem 1.2rem;
+    }
+
+    .cover {
+        width: 150px;
+    }
+
+    .title {
+        font-size: 1.1em;
+    }
+
+    .category {
+        margin-bottom: 1.5em;
+    }
 }

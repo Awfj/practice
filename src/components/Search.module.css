@@ -1,39 +1,102 @@
 .search {
     display: flex;
     flex-direction: column;
-    gap: 1em;
     align-items: center;
+    gap: 1.45rem;
+    ;
 }
 
-.searchInput {
-    background-color: white;
+.input_group {
+    background-color: var(--background-secondary);
     display: flex;
+    justify-content: space-between;
 }
 
-.searchMisc {
-    display: flex;
-    gap: 1.5em;
-}
-
-.search input,
-.search button {
-    background-color: transparent;
-    border: none;
-}
-
-.search input {
-    padding: 1em;
+.input_group input {
+    width: 36.125rem;
+    padding: 0.32em 0.2em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 
-.search button {
+.input_group button {
+    padding: 0 0.4em;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
 
-.search button:hover {
-    background-color: black;
-    color: white;
-    fill: white;
-    outline: 1px solid black;
+.input_group button:hover,
+.input_group button:focus-visible {
+    background-color: var(--background-tertiary);
+    fill: var(--color-tertiary);
+    outline: 1px solid var(--background-secondary);
+}
+
+.input_group input,
+.input_group button {
+    background-color: transparent;
+    border: none;
+}
+
+.select_group {
+    display: flex;
+    gap: 1.4rem;
+}
+
+.select_group label {
+    font-size: 1.2em;
+    letter-spacing: normal;
+}
+
+.select_group select {
+    width: 14.375rem;
+    padding: 0.28em 0.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-left: 0.35em;
+}
+
+@media (max-width: 960px) {
+    .input_group input {
+        width: 60vw;
+    }
+    
+    .select_group {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+@media (max-width: 640px) {
+    .input_group input {
+        font-size: 1.3em;
+        width: 60vw;
+    }
+
+    .select_group label {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .input_group {
+        width: 75vw;
+    }
+
+    .input_group input {
+        width: 62vw;
+        padding: 0.32em 0.5em;
+    }
+
+    .select_group label {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    .select_group select {
+        margin-top: 0.5em;
+        margin-left: 0;
+        width: 75vw;
+    }
 }
