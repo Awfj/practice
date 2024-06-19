@@ -1,37 +1,18 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const BOOKS_TO_LOAD = 4;
-
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getState }) => {
-    const { term, sorting, category, startIndex } = getState().books;
-
-    let titlePart = `volumes?q=${term}`;
-    let sortingPart = `orderBy=${sorting}`;
-    let categoryPart = category === "all" ? "" : `+subject:${category}`;
-    let startIndexPart = `startIndex=${startIndex}`;
-    let maxResultsPart = `maxResults=${BOOKS_TO_LOAD}`;
-    let keyPart = `key=${import.meta.env.VITE_API_KEY}`;
-
-    const response = await axios.get(`https://www.googleapis.com/books/v1/${titlePart}${categoryPart}&${sortingPart}&${startIndexPart}&${maxResultsPart}&${keyPart}`);
-    return response.data;
-});
-
-export const resetStartIndex = createAction('books/resetStartIndex');
-
-export const selectBookById = (state, bookId) =>
-    state.books.books.find(book => book.id === bookId);
+import { createSlice } from '@reduxjs/toolkit';
+import { BOOKS_TO_LOAD } from '../constants';
+import { fetchBooks, fetchBookById, resetStartIndex } from './actions';
 
 const initialState = {
     books: [],
     status: 'idle',
     total: 0,
-    term: 'react',
+    title: '',
     category: 'all',
     sorting: 'relevance',
     startIndex: 0,
     loadMore: false,
-    error: null
+    fetchedBook: null,
+    error: null,
 }
 
 export const booksSlice = createSlice({
@@ -44,18 +25,28 @@ export const booksSlice = createSlice({
         loadMoreBooks: (state) => {
             state.loadMore = true;
         },
-        setTerm: (state, action) => {
-            state.term = action.payload;
+        setTitle: (state, action) => {
+            state.title = action.payload;
         },
         setCategory: (state, action) => {
             state.category = action.payload;
         },
         setSorting: (state, action) => {
             state.sorting = action.payload;
-        }
+        },
+        setFetchedBook: (state, action) => {
+            state.fetchedBook = action.payload;
+        },
+        setError: (state, action) => {
+            state.error = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
+            .addCase(resetStartIndex, (state) => {
+                state.startIndex = 0;
+            })
+            // Cases for fetching books
             .addCase(fetchBooks.pending, (state) => {
                 state.status = 'loading';
             })
@@ -66,18 +57,30 @@ export const booksSlice = createSlice({
                 } else {
                     state.books = action.payload.items || [];
                 }
-                state.loadMoreClicked = false;
+                state.loadMore = false;
                 state.total = action.payload.totalItems;
+                state.error = null;
             })
             .addCase(fetchBooks.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message;
+                state.error = action.payload;
             })
-            .addCase(resetStartIndex, (state) => {
-                state.startIndex = 0;
+            // Cases for fetching a single book
+            .addCase(fetchBookById.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchBookById.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.fetchedBook = action.payload;
+                state.error = null;
+            })
+            .addCase(fetchBookById.rejected, (state, action) => {
+                console.log(action.payload)
+                state.status = 'failed';
+                state.error = action.payload;
             });
     }
 })
 
-export const { setTerm, setCategory, setSorting, loadMoreBooks, incrementStartIndex } = booksSlice.actions
+export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex } = booksSlice.actions
 export default booksSlice.reducer;

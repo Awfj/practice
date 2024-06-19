@@ -1,20 +1,64 @@
 .count {
     text-align: center;
     font-weight: bold;
-    padding: 1em 0;
+    padding-top: 1.05em;
+    font-size: 1.1em;
 }
 
-.books {
+.book_list {
     display: flex;
     flex-wrap: wrap;
-    gap: 2em;
+    gap: 2.8rem;
     justify-content: center;
+    margin-top: 2.5rem;
+    padding: 0 1.3rem;
 }
 
-.loading {
+.loading_top {
     text-align: center;
+    font-weight: bold;
+    padding-top: 1.05em;
+    font-size: 1.1em;
+}
+
+.loading_bottom {
+    text-align: center;
+    font-weight: bold;
+    padding: 0.32em 0.5em;
+    font-size: 1.3em;
+    margin-top: 2.8rem;
+    margin-bottom: 2em;
 }
 
 .load_more_btn {
     margin-bottom: 2em;
+    margin-top: 2.8rem;
+    border: none;
+    background-color: var(--background-primary);
+    padding: 0.32em 0.5em;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.08s ease-in-out;
+}
+
+.load_more_btn:hover,
+.load_more_btn:focus-visible {
+    background-color: var(--background-secondary);
+    outline: 2px solid var(--background-tertiary);
+}
+
+@media (max-width: 640px) {
+    .count {
+        font-size: 1em;
+    }
+
+    .book_list {
+        margin-top: 2rem;
+        gap: 2.5rem;
+    }
+
+    .load_more_btn {
+        margin-top: 2.5rem;
+    }
 }
