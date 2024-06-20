@@ -5,6 +5,7 @@ import { CATEGORIES, SORTING } from '../constants';
 
 const initialState = {
     books: [],
+    cachedBooks: [],
     status: 'idle',
     total: 0,
     title: '',
@@ -25,6 +26,13 @@ export const booksSlice = createSlice({
         },
         loadMoreBooks: (state) => {
             state.loadMore = true;
+        },
+        resetSearchState: (state) => {
+            state.books = [];
+            state.cachedBooks = [];
+            state.total = 0;
+            state.startIndex = 0;
+            state.loadMore = false;
         },
         setTitle: (state, action) => {
             state.title = action.payload;
@@ -52,14 +60,19 @@ export const booksSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(fetchBooks.fulfilled, (state, action) => {
+                let [data, totalItems, startIndex, booksToCache] = action.payload;
                 state.status = 'succeeded';
+
                 if (state.loadMore) {
-                    state.books = state.books.concat(action.payload.items) || [];
+                    state.books = state.books.concat(data) || [];
                 } else {
-                    state.books = action.payload.items || [];
+                    state.books = data || [];
+                    state.total = totalItems;
                 }
+
+                state.startIndex = startIndex;
+                state.cachedBooks = booksToCache;
                 state.loadMore = false;
-                state.total = action.payload.totalItems;
                 state.error = null;
             })
             .addCase(fetchBooks.rejected, (state, action) => {
@@ -83,5 +96,5 @@ export const booksSlice = createSlice({
     }
 })
 
-export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex } = booksSlice.actions
+export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex, resetSearchState } = booksSlice.actions
 export default booksSlice.reducer;

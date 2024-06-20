@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setCategory, setTitle, setSorting } from '../state/booksSlice';
-import { fetchBooks, resetStartIndex } from '../state/actions';
+import { setCategory, setTitle, setSorting, resetSearchState } from '../state/booksSlice';
+import { fetchBooks } from '../state/actions';
 import { CATEGORIES, SORTING } from '../constants';
 import styles from './Search.module.css';
 
@@ -17,7 +17,7 @@ export default function Search() {
         e.preventDefault();
 
         if (title.trim() !== '') {
-            dispatch(resetStartIndex());
+            dispatch(resetSearchState());
             dispatch(fetchBooks());
             navigate('/');
         }

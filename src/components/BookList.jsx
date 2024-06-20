@@ -1,6 +1,6 @@
 import BookCard from './BookCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadMoreBooks, incrementStartIndex } from '../state/booksSlice';
+import { loadMoreBooks } from '../state/booksSlice';
 import { fetchBooks } from '../state/actions';
 import styles from './BookList.module.css';
 
@@ -14,7 +14,6 @@ export default function BookList() {
 
     const handleLoadMore = () => {
         dispatch(loadMoreBooks());
-        dispatch(incrementStartIndex());
         dispatch(fetchBooks());
     };
 
