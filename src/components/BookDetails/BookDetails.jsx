@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchBookById, selectBookById } from '../state/actions';
+import { fetchBookById, selectBookById } from '../../state/actions';
 import styles from './BookDetails.module.css';
 
 export default function BookDetails() {
