@@ -3,6 +3,7 @@ import { loadMoreBooks } from '../../state/booksSlice';
 import { fetchBooks } from '../../state/actions';
 import styles from './BookList.module.css';
 import BookCard from '../../components/BookCard';
+import ErrorPage from '../ErrorPage';
 
 export default function BookList() {
     const dispatch = useDispatch();
@@ -19,29 +20,23 @@ export default function BookList() {
 
     return (
         <>
-            {error ? (
-                <p className="error">{error}</p>
-            ) : (
-                <>
-                    {(status !== 'loading' || loadMore) && <p className={styles.count}>{total === 0 ? "No books found." : `Found ${total} results`}</p>}
+            {(status !== 'loading' || loadMore) && <p className={styles.count}>{total === 0 ? "No books found." : `Found ${total} results`}</p>}
 
-                    {!loadMore && status === 'loading' && <div className={styles.loading_top}>Loading...</div>}
-                    {status !== 'failed' && (
-                        <div className={styles.book_list}>
-                            {books.map((book) => (
-                                <BookCard key={book.id} book={book} />
-                            ))}
-                        </div>
-                    )}
-
-                    {total > 0 && status !== 'failed' &&
-                        (loadMore && status === 'loading'
-                            ? <div className={styles.loading_bottom}>Loading...</div>
-                            : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
-                        )
-                    }
-                </>
+            {!loadMore && status === 'loading' && <div className={styles.loading_top}>Loading...</div>}
+            {status !== 'failed' && (
+                <div className={styles.book_list}>
+                    {books.map((book) => (
+                        <BookCard key={book.id} book={book} />
+                    ))}
+                </div>
             )}
+
+            {total > 0 && status !== 'failed' &&
+                (loadMore && status === 'loading'
+                    ? <div className={styles.loading_bottom}>Loading...</div>
+                    : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
+                )
+            }
         </>
     )
 }
