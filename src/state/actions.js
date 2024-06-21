@@ -7,6 +7,7 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
     try {
         let { books, title, sorting, category, startIndex, cachedBooks } = getState().books;
 
+        let basePart = import.meta.env.VITE_API_URL;
         let titlePart = `volumes?q=${title}`;
         let sortingPart = `orderBy=${sorting}`;
         let categoryPart = category === "all" ? "" : `+subject:${category}`;
@@ -22,7 +23,7 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
 
         while (remainingBooks > 0) {
             let startIndexPart = `startIndex=${startIndex}`;
-            const { data: { items, totalItems } } = await axios.get(`https://www.googleapis.com/books/v1/${titlePart}${categoryPart}&${sortingPart}&${startIndexPart}&${maxResultsPart}&${keyPart}`);
+            const { data: { items, totalItems } } = await axios.get(`${basePart}${titlePart}${categoryPart}&${sortingPart}&${startIndexPart}&${maxResultsPart}&${keyPart}`);
 
             fetchedTotalItems = totalItems;
             startIndex += BOOKS_TO_LOAD;
