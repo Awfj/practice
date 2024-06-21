@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchBookById, selectBookById } from '../../state/actions';
+import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
 import styles from './BookDetails.module.css';
 
 export default function BookDetails() {
@@ -48,10 +49,7 @@ export default function BookDetails() {
 
                             {book.volumeInfo.authors && <p className={styles.author}>{book.volumeInfo.authors.join(', ')}</p>}
                             {book.volumeInfo.description && <div className={styles.description}>
-                                {/* Remove HTML tags and split the description into paragraphs */}
-                                {book.volumeInfo.description.replace(/<[^>]*>?/gm, '').split(/(?<=[.!?])\s+(?=[A-Z])/).map((paragraph, index) => (
-                                    <p key={index}>{paragraph}</p>
-                                ))}
+                                {formatDescriptionToParagraphs(book.volumeInfo.description)}
                             </div>}
                             <button className={styles.back_btn} onClick={() => navigate(-1)}>Back</button>
                         </section >
