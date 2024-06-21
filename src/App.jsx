@@ -2,22 +2,22 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import 'normalize.css/normalize.css';
 
 import Search from './components/Search';
-import BookDetails from './components/BookDetails';
-import BookList from './components/BookList';
-import { HOME_PATH, BOOK_DETAILS_PATH } from './routes';
+import BookDetails from './views/BookDetails';
+import BookList from './views/BookList';
+import { Paths } from './constants';
 
 export default function App() {
   return (
     <Router>
       <header>
-        <h1><Link to={HOME_PATH}>Search for books</Link></h1>
+        <h1><Link to={Paths.HOME}>Search for books</Link></h1>
         <Search />
       </header>
 
       <main>
         <Routes>
-          <Route exact path={HOME_PATH} element={<BookList />} />
-          <Route path={BOOK_DETAILS_PATH} element={<BookDetails />} />
+          <Route path={Paths.HOME} element={<BookList />} />
+          <Route path={Paths.BOOK.DETAILS} element={<BookDetails />} />
         </Routes>
       </main>
     </Router>

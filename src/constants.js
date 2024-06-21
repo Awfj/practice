@@ -14,3 +14,12 @@ export const SORTING = [
     'relevance',
     'newest',
 ];
+
+const BOOK_BASE = '/book';
+export const Paths = {
+    HOME: '/',
+    BOOK: {
+        DETAILS: `${BOOK_BASE}/:id`,
+        getDetailsPath: (id) => `${BOOK_BASE}/${id}`,
+    },
+};

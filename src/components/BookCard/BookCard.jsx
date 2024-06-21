@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './BookCard.module.css';
-import { getBookDetailsPath } from '../../routes';
+import { Paths } from '../../constants';
 
 export default function BookCard({ book }) {
     return (
-        <Link to={getBookDetailsPath(book.id)} className={styles.card}>
+        <Link to={Paths.BOOK.getDetailsPath(book.id)} className={styles.card}>
             {book.volumeInfo.imageLinks && (
                 <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
             )}

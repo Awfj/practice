@@ -2,8 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCategory, setTitle, setSorting, resetSearchState } from '../../state/booksSlice';
 import { fetchBooks } from '../../state/actions';
-import { CATEGORIES, SORTING } from '../../constants';
-import { HOME_PATH } from '../../routes';
+import { CATEGORIES, SORTING, Paths } from '../../constants';
 import styles from './Search.module.css';
 
 export default function Search() {
@@ -20,7 +19,7 @@ export default function Search() {
         if (title.trim() !== '') {
             dispatch(resetSearchState());
             dispatch(fetchBooks());
-            navigate(HOME_PATH);
+            navigate(Paths.HOME);
         }
 
     }

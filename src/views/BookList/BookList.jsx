@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadMoreBooks } from '../../state/booksSlice';
 import { fetchBooks } from '../../state/actions';
 import styles from './BookList.module.css';
-import BookCard from '../BookCard';
+import BookCard from '../../components/BookCard';
 
 export default function BookList() {
     const dispatch = useDispatch();
