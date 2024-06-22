@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default function ErrorPage({ error }) {
+export default function ErrorPage() {
+    const error = useSelector((state) => state.books.error);
+
     return (
         <p className='error'>{error}</p>
     )
