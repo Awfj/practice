@@ -5,9 +5,8 @@ import 'normalize.css/normalize.css';
 import Search from './components/Search';
 import BookDetails from './views/BookDetails';
 import BookList from './views/BookList';
-import { Paths } from './constants';
 import ErrorPage from './views/ErrorPage';
-import useErrorBoundary from './hooks/useErrorBoundary';
+import { Paths } from './constants';
 
 export default function App() {
   const error = useSelector((state) => state.books.error);
@@ -21,8 +20,8 @@ export default function App() {
 
       <main>
         <Routes>
-          <Route path={Paths.HOME} element={useErrorBoundary(BookList, error)} />
-          <Route path={Paths.BOOK.DETAILS} element={useErrorBoundary(BookDetails, error)} />
+          <Route path={Paths.HOME} element={error ? <BookList /> : <ErrorPage />} />
+          <Route path={Paths.BOOK.DETAILS} element={error ? <BookDetails /> : <ErrorPage />} />
         </Routes>
       </main>
     </Router>
