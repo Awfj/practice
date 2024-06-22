@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './BookCard.module.css';
 import { Paths } from '../../constants';
+import BasicBookInfo from '..//BasicBookInfo';
 
 export default function BookCard({ book }) {
     return (
@@ -9,10 +10,7 @@ export default function BookCard({ book }) {
             {book.volumeInfo.imageLinks && (
                 <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
             )}
-            {book.volumeInfo.categories && <p className={styles.category}>{book.volumeInfo.categories.join(', ')}</p>}
-
-            <h2 className={styles.title}>{book.volumeInfo.title}</h2>
-            {book.volumeInfo.authors && <p className={styles.author}>{book.volumeInfo.authors.join(', ')}</p>}
+            <BasicBookInfo book={book} styles={styles} />
         </Link>
     )
 }

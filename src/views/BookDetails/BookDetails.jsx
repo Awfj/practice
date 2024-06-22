@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchBookById, selectBookById } from '../../state/actions';
 import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
+import BasicBookInfo from '../../components/BasicBookInfo';
 import styles from './BookDetails.module.css';
-import ErrorPage from '../ErrorPage';
 
 export default function BookDetails() {
     const navigate = useNavigate();
@@ -13,7 +13,6 @@ export default function BookDetails() {
 
     const storedBook = useSelector(state => selectBookById(state, id));
     const fetchedBook = useSelector(state => state.books.fetchedBook);
-    const error = useSelector(state => state.books.error);
 
     // Fetch book details from Google Books API
     useEffect(() => {
@@ -41,17 +40,13 @@ export default function BookDetails() {
                     </div>
 
                     <section>
-                        {book.volumeInfo.categories && <p className={styles.category}>{book.volumeInfo.categories.join(', ')}</p>}
-
-                        <h2 className={styles.title}>{book.volumeInfo.title}</h2>
-
-                        {book.volumeInfo.authors && <p className={styles.author}>{book.volumeInfo.authors.join(', ')}</p>}
+                        <BasicBookInfo book={book} styles={styles} />
                         {book.volumeInfo.description && <div className={styles.description}>
                             {formatDescriptionToParagraphs(book.volumeInfo.description)}
                         </div>}
                         <button className={styles.back_btn} onClick={() => navigate(-1)}>Back</button>
                     </section >
-                </div >
+                </div>
             )}
         </>
     )
