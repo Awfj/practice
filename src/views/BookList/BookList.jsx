@@ -18,7 +18,8 @@ export default function BookList() {
 
     return (
         <>
-            {(status !== 'loading' || loadMore) && <p className={styles.count}>{total === 0 ? "No books found." : `Found ${total} results`}</p>}
+            {(status !== 'loading' || loadMore) && <p className={styles.count}>
+                {total === 0 ? "No books found." : `Found ${total} results. Number of books displayed: ${books.length}`}</p>}
 
             {!loadMore && status === 'loading' && <div className={styles.loading_top}>Loading...</div>}
             {status !== 'failed' && (
