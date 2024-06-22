@@ -1,6 +1,7 @@
 .book_details {
     display: flex;
-    height: 100%;
+    width: 100%;
+    height: max(calc(100vh - 16.9375rem), 100%);
 }
 
 .book_details>div {
