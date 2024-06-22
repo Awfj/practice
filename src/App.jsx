@@ -20,8 +20,8 @@ export default function App() {
 
       <main>
         <Routes>
-          <Route path={Paths.HOME} element={error ? <BookList /> : <ErrorPage />} />
-          <Route path={Paths.BOOK.DETAILS} element={error ? <BookDetails /> : <ErrorPage />} />
+          <Route path={Paths.HOME} element={error ? <ErrorPage /> : <BookList />} />
+          <Route path={Paths.BOOK.DETAILS} element={error ? <ErrorPage /> : <BookDetails />} />
         </Routes>
       </main>
     </Router>

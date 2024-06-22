@@ -3,14 +3,12 @@ import { loadMoreBooks } from '../../state/booksSlice';
 import { fetchBooks } from '../../state/actions';
 import styles from './BookList.module.css';
 import BookCard from '../../components/BookCard';
-import ErrorPage from '../ErrorPage';
 
 export default function BookList() {
     const dispatch = useDispatch();
     const books = useSelector((state) => state.books.books);
     const total = useSelector((state) => state.books.total);
     const status = useSelector((state) => state.books.status);
-    const error = useSelector((state) => state.books.error);
     const loadMore = useSelector((state) => state.books.loadMore);
 
     const handleLoadMore = () => {
