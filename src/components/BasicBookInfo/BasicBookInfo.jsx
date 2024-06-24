@@ -1,5 +1,5 @@
-
 import PropTypes from 'prop-types';
+
 export default function BasicBookInfo({ book, styles }) {
     return (
         <>

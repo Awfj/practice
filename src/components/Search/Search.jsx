@@ -4,6 +4,7 @@ import { setCategory, setTitle, setSorting, resetSearchState } from '../../state
 import { fetchBooks } from '../../state/actions';
 import { CATEGORIES, SORTING, Paths } from '../../constants';
 import SearchIcon from "../SearchIcon";
+import SelectInput from '../SelectInput';
 import styles from './Search.module.css';
 
 export default function Search() {
@@ -39,29 +40,21 @@ export default function Search() {
             </div>
 
             <div className={styles.select_group}>
-                <label>
-                    Categories
-                    <select
-                        name="category"
-                        value={category}
-                        onChange={(e) => dispatch(setCategory(e.target.value))}>
-                        {CATEGORIES.map((category) => (
-                            <option key={category} value={category}>{category}</option>
-                        ))}
-                    </select>
-                </label>
+                <SelectInput
+                    label="Categories"
+                    name="category"
+                    value={category}
+                    onChange={(e) => dispatch(setCategory(e.target.value))}
+                    options={CATEGORIES}
+                />
 
-                <label>
-                    Sorting by
-                    <select
-                        name='sorting'
-                        value={sorting}
-                        onChange={(e) => dispatch(setSorting(e.target.value))}>
-                        {SORTING.map((sort) => (
-                            <option key={sort} value={sort}>{sort}</option>
-                        ))}
-                    </select>
-                </label>
+                <SelectInput
+                    label="Sorting by"
+                    name="sorting"
+                    value={sorting}
+                    onChange={(e) => dispatch(setSorting(e.target.value))}
+                    options={SORTING}
+                />
             </div>
         </form>
     )
