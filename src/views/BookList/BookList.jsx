@@ -17,7 +17,7 @@ export default function BookList() {
     };
 
     return (
-        <>
+        <div className={styles.page}>
             {(status !== 'loading' || loadMore) && <p className={styles.count}>
                 {total === 0 ? "No books found." : `Found ${total} results. Number of books displayed: ${books.length}`}</p>}
 
@@ -36,6 +36,6 @@ export default function BookList() {
                     : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
                 )
             }
-        </>
+        </div>
     )
 }

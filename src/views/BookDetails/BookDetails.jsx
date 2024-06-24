@@ -31,9 +31,9 @@ export default function BookDetails() {
     const book = storedBook || fetchedBook;
 
     return (
-        <>
+        <div className={styles.book_details}>
             {book && (
-                <div className={styles.book_details}>
+                <>
                     <div className={styles.cover}>
                         <BookCover book={book} />
                     </div>
@@ -45,8 +45,8 @@ export default function BookDetails() {
                         </div>}
                         <button className={styles.back_btn} onClick={() => navigate(-1)}>Back</button>
                     </section >
-                </div>
+                </>
             )}
-        </>
+        </div>
     )
 }
