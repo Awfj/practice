@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { BOOKS_TO_LOAD } from '../constants';
-import { fetchBooks, fetchBookById, resetStartIndex } from './actions';
+import { fetchBooks, fetchBookById } from './actions';
 import { CATEGORIES, SORTING } from '../constants';
 
 const initialState = {
@@ -52,9 +52,6 @@ export const booksSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(resetStartIndex, (state) => {
-                state.startIndex = 0;
-            })
             // Cases for fetching books
             .addCase(fetchBooks.pending, (state) => {
                 state.status = 'loading';
