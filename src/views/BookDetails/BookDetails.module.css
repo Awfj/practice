@@ -27,7 +27,7 @@
     padding: 3.7rem 3.6rem;
 }
 
-.cover {
+.cover>img {
     width: 20vw;
     max-width: 300px;
 }
@@ -93,7 +93,7 @@
         font-size: 1.5em;
     }
 
-    .cover {
+    .cover>img {
         width: 200px;
     }
 
@@ -113,12 +113,13 @@
 }
 
 @media (max-width: 480px) {
+
     .book_details>div,
     .book_details>section {
         padding: 2rem 1.2rem;
     }
 
-    .cover {
+    .cover>img {
         width: 150px;
     }
 

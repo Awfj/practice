@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchBookById, selectBookById } from '../../state/actions';
 import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
-import BasicBookInfo from '../../components/BasicBookInfo';
 import styles from './BookDetails.module.css';
+import BasicBookInfo from '../../components/BasicBookInfo';
+import BookCover from '../../components/BookCover/BookCover';
 
 export default function BookDetails() {
     const navigate = useNavigate();
@@ -33,10 +34,8 @@ export default function BookDetails() {
         <>
             {book && (
                 <div className={styles.book_details}>
-                    <div>
-                        {book.volumeInfo.imageLinks && (
-                            <img className={styles.cover} src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
-                        )}
+                    <div className={styles.cover}>
+                        <BookCover book={book} />
                     </div>
 
                     <section>
