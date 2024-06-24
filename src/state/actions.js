@@ -1,4 +1,4 @@
-import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BOOKS_TO_LOAD, CATEGORIES } from '../constants';
 
@@ -10,12 +10,17 @@ function constructApiUrl({ title, category, sorting, startIndex }) {
     return `${basePart}volumes?q=${title}${categoryPart}&orderBy=${sorting}&startIndex=${startIndex}&maxResults=${BOOKS_TO_LOAD}&${keyPart}`;
 }
 
-function filterBooks(items, storedBooks, fetchedBooksMap, category) {
+function filterBooks(items, storedBooks, fetchedBooks, category) {
+    const fetchedBooksMap = new Map(fetchedBooks.map(book => [book.id, book]));
     const uniqueBooks = new Map();
 
-    // Remove duplicates and if loading more books, remove books already stored
+    // Remove duplicate books and books with a missing title
     items.forEach(book => {
-        if (!uniqueBooks.has(book.id) && !storedBooks.has(book.id) && !fetchedBooksMap.has(book.id)) {
+        if (!book.volumeInfo.title) {
+            return;
+        }
+
+        if (!(uniqueBooks.has(book.id) || storedBooks.has(book.id) || fetchedBooksMap.has(book.id))) {
             uniqueBooks.set(book.id, book);
         }
     });
@@ -29,7 +34,6 @@ function filterBooks(items, storedBooks, fetchedBooksMap, category) {
             }
         });
     }
-
     return uniqueBooks;
 }
 
@@ -38,7 +42,6 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
     try {
         const { books, title, sorting, category, cachedBooks } = getState().books;
         const storedBooksMap = new Map(books.map(book => [book.id, book]));
-        const fetchedBooksMap = new Map(cachedBooks.map(book => [book.id, book]));
         const fetchedBooks = [...cachedBooks];
 
         let { startIndex } = getState().books;
@@ -49,12 +52,14 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
         while (remainingBooks > 0) {
             const apiUrl = constructApiUrl({ title, category, sorting, startIndex });
             const { data: { items, totalItems } } = await axios.get(apiUrl);
-            const uniqueBooks = filterBooks(items, storedBooksMap, fetchedBooksMap, category);
+            
+            const uniqueBooks = filterBooks(items, storedBooksMap, fetchedBooks, category);
             const count = items.length;
 
             fetchedTotalItems = totalItems;
             startIndex += BOOKS_TO_LOAD;
 
+            // If there are more books than needed, store only the necessary amount and cache the rest
             if (uniqueBooks.size + cachedBooks.length > remainingBooks) {
                 fetchedBooks.push(...Array.from(uniqueBooks.values()).slice(0, remainingBooks - cachedBooks.length));
                 booksToCache = Array.from(uniqueBooks.values()).slice(remainingBooks - cachedBooks.length);
