@@ -89,6 +89,3 @@ export const fetchBookById = createAsyncThunk('books/fetchBookById', async (id, 
 // Select a book by its ID
 export const selectBookById = (state, bookId) =>
     state.books.books.find(book => book.id === bookId);
-
-// Reset the start index to 0 for a new search
-export const resetStartIndex = createAction('books/resetStartIndex');
