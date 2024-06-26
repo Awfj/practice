@@ -32,6 +32,10 @@
     max-width: 300px;
 }
 
+.details>button {
+    margin-left: auto;
+}
+
 .category {
     margin-bottom: 2.6em;
 }
@@ -53,24 +57,6 @@
     padding: 1.6rem 1rem;
     font-size: 1.1em;
     margin-bottom: 2em;
-}
-
-.back_btn {
-    border: none;
-    background-color: var(--background-primary);
-    padding: 0.32em 0.5em;
-    font-size: 1.3em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.08s ease-in-out;
-    margin-left: auto;
-    color: var(--background-tertiary);
-}
-
-.back_btn:hover,
-.back_btn:focus-visible {
-    background-color: var(--background-secondary);
-    outline: 2px solid var(--background-tertiary);
 }
 
 @media (max-width: 1200px) {
@@ -113,7 +99,6 @@
 }
 
 @media (max-width: 480px) {
-
     .book_details>div,
     .book_details>section {
         padding: 2rem 1.2rem;
