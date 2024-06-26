@@ -7,6 +7,7 @@ import ActionButton from '../../buttons/ActionButton';
 import { signIn, signUp } from '../../../state/auth/authActions';
 import { resetError } from '../../../state/auth/authSlice';
 import { closeAuthModal } from '../../../state/app/appSlice';
+import { Auth } from '../../../constants';
 
 export default function AuthForm({ type }) {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export default function AuthForm({ type }) {
 
     return (
         <div>
-            <form className={styles.form} onSubmit={type === "Sign In" ? handleSignIn : handleSignUp}>
+            <form className={styles.form} onSubmit={type === Auth.SIGN_IN ? handleSignIn : handleSignUp}>
                 <div className={styles.input_fields}>
                     <div className={styles.input_group}>
                         <User />
@@ -67,7 +68,7 @@ export default function AuthForm({ type }) {
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder='Password'
                             required
-                            autoComplete={type === "Sign In" ? "current-password" : "new-password"}
+                            autoComplete={type === Auth.SIGN_IN ? "current-password" : "new-password"}
                         />
                     </div>
 
