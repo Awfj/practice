@@ -30,7 +30,7 @@ export default function AuthForm({ type }) {
         e.preventDefault();
         try {
             await dispatch(signUp({ email, password })).unwrap();
-            setSuccessMessage("Account created successfully.");
+            setSuccessMessage("Account created successfully. You've been signed in.");
         } catch (error) {
             console.error('Sign up failed:', error);
         }
@@ -38,6 +38,7 @@ export default function AuthForm({ type }) {
 
     useEffect(() => {
         dispatch(resetError());
+        setSuccessMessage('');
         setEmail('');
         setPassword('');
     }, [type, dispatch]);
