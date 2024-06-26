@@ -32,36 +32,8 @@ h1 {
   margin: 0;
 }
 
-header {
-  height: var(--header-height);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--background-primary);
-  color: var(--color-tertiary);
-  padding: 2em;
-  background-size: cover;
-  background-position: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), var(--background-image);
-}
-
 main {
   height: calc(100vh - var(--header-height));
-}
-
-h1 {
-  font-size: 3em;
-  margin-bottom: 0.84em;
-}
-
-h1>a {
-  color: var(--color-tertiary);
-  transition: color 0.2s ease-in-out;
-}
-
-h1:hover>a {
-  color: var(--color-primary);
 }
 
 ul {
@@ -75,8 +47,8 @@ a {
 
 svg {
   display: block;
-  width: 1.9em;
-  height: 1.9em;
+  width: 1.9rem;
+  height: 1.9rem;
 }
 
 .error {
@@ -85,32 +57,9 @@ svg {
   font-size: 1.1em;
 }
 
-@media (max-width: 960px) {
-  header {
-    height: 21rem;
-  }
-}
 
 @media (max-width: 640px) {
   :root {
     --background-image: url('./assets//background-sm.jpg');
-  }
-
-  header {
-    height: 17.5rem;
-  }
-
-  h1 {
-    font-size: 2em;
-  }
-}
-
-@media (max-width: 480px) {
-  header {
-    height: 21rem;
-  }
-
-  h1 {
-    font-size: 1.6em;
   }
 }

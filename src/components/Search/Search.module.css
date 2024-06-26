@@ -3,7 +3,6 @@
     flex-direction: column;
     align-items: center;
     gap: 1.45rem;
-    ;
 }
 
 .input_group {
@@ -28,7 +27,7 @@
 .input_group button:hover,
 .input_group button:focus-visible {
     background-color: var(--background-tertiary);
-    fill: var(--color-tertiary);
+    color: var(--color-tertiary);
     outline: 1px solid var(--background-secondary);
 }
 

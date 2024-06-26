@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchBookById, selectBookById } from '../../state/actions';
+import { fetchBookById, selectBookById } from '../../state/books/booksActions';
 import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
 import styles from './BookDetails.module.css';
 import BasicBookInfo from '../../components/BasicBookInfo';
-import BookCover from '../../components/BookCover/BookCover';
+import BookCover from '../../components/BookCover';
+import ActionButton from '../../components/buttons/ActionButton';
 
 export default function BookDetails() {
     const navigate = useNavigate();
@@ -14,6 +15,8 @@ export default function BookDetails() {
 
     const storedBook = useSelector(state => selectBookById(state, id));
     const fetchedBook = useSelector(state => state.books.fetchedBook);
+
+    const goBack = useCallback(() => navigate(-1), [navigate]);
 
     // Fetch book details from Google Books API
     useEffect(() => {
@@ -38,12 +41,14 @@ export default function BookDetails() {
                         <BookCover book={book} />
                     </div>
 
-                    <section>
+                    <section className={styles.details}>
                         <BasicBookInfo book={book} styles={styles} />
+
                         {book.volumeInfo.description && <div className={styles.description}>
                             {formatDescriptionToParagraphs(book.volumeInfo.description)}
                         </div>}
-                        <button className={styles.back_btn} onClick={() => navigate(-1)}>Back</button>
+
+                        <ActionButton onClick={goBack}>Back</ActionButton>
                     </section >
                 </>
             )}

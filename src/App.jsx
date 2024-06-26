@@ -1,22 +1,21 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import 'normalize.css/normalize.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import Search from './components/Search';
+import { Paths } from './constants';
 import BookDetails from './views/BookDetails';
 import BookList from './views/BookList';
 import ErrorPage from './views/ErrorPage';
-import { Paths } from './constants';
+import AuthModal from './components/auth/AuthModal';
+import Header from './components/Header';
 
 export default function App() {
   const error = useSelector((state) => state.books.error);
+  const isAuthModalOpen = useSelector((state) => state.app.isAuthModalOpen);
 
   return (
     <Router>
-      <header>
-        <h1><Link to={Paths.HOME}>Search for books</Link></h1>
-        <Search />
-      </header>
+      <Header />
 
       <main>
         <Routes>
@@ -24,6 +23,8 @@ export default function App() {
           <Route path={Paths.BOOK.DETAILS} element={error ? <ErrorPage /> : <BookDetails />} />
         </Routes>
       </main>
+
+      {isAuthModalOpen && <AuthModal />}
     </Router>
   )
 }

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { loadMoreBooks } from '../../state/booksSlice';
-import { fetchBooks } from '../../state/actions';
+import { loadMoreBooks } from '../../state/books/booksSlice';
+import { fetchBooks } from '../../state/books/booksActions';
 import styles from './BookList.module.css';
 import BookCard from '../../components/BookCard';
 
