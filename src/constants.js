@@ -23,3 +23,8 @@ export const Paths = {
         getDetailsPath: (id) => `${BOOK_BASE}/${id}`,
     },
 };
+
+export const Auth = {
+    SIGN_IN: "Sign In",
+    SIGN_UP: "Sign Up",
+};

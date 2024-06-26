@@ -5,6 +5,7 @@ import { closeAuthModal } from '../../../state/app/appSlice';
 import AuthForm from '../AuthForm';
 import ActionButton from '../../buttons/ActionButton';
 import TabButton from '../../buttons/TabButton';
+import { Auth } from '../../../constants';
 
 export default function AuthModal() {
     const dispatch = useDispatch();
@@ -15,12 +16,18 @@ export default function AuthModal() {
             <div className={styles.backdrop}></div>
             <div className={styles.modal}>
                 <div className={styles.tabs}>
-                    <TabButton name="Sign In" activeTab={activeTab} setActiveTab={setActiveTab} />
-                    <TabButton name="Sign Up" activeTab={activeTab} setActiveTab={setActiveTab} />
+                    {[Auth.SIGN_IN, Auth.SIGN_UP].map((authType) => (
+                        <TabButton
+                            key={authType}
+                            name={authType}
+                            activeTab={activeTab}
+                            setActiveTab={setActiveTab}
+                        />
+                    ))}
                 </div>
 
                 <div className={styles.tabContent}>
-                    <AuthForm type={activeTab === 'Sign In' ? 'Sign In' : 'Sign Up'} />
+                    <AuthForm type={activeTab} />
                 </div>
 
                 <ActionButton onClick={() => dispatch(closeAuthModal())}>Close</ActionButton>
