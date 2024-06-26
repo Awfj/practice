@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { BOOKS_TO_LOAD } from '../constants';
-import { fetchBooks, fetchBookById } from './actions';
-import { CATEGORIES, SORTING } from '../constants';
+import { BOOKS_TO_LOAD } from '../../constants';
+import { fetchBooks, fetchBookById } from './booksActions';
+import { CATEGORIES, SORTING } from '../../constants';
 
 const initialState = {
     books: [],

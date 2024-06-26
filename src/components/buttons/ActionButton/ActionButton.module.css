@@ -14,3 +14,9 @@
     background-color: var(--background-secondary);
     outline: 2px solid var(--background-tertiary);
 }
+
+@media (max-width: 480px) {
+    .btn {
+        font-size: 1.1em;
+    }
+}

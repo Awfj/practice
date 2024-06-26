@@ -1,25 +1,21 @@
-import { useState } from 'react';
+import 'normalize.css/normalize.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import 'normalize.css/normalize.css';
 
-
+import { Paths } from './constants';
 import BookDetails from './views/BookDetails';
 import BookList from './views/BookList';
 import ErrorPage from './views/ErrorPage';
-import AuthenticationModal from './components/AuthenticationModal';
-import { Paths } from './constants';
+import AuthModal from './components/auth/AuthModal';
 import Header from './components/Header';
 
 export default function App() {
   const error = useSelector((state) => state.books.error);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-
-  const toggleAuthModal = () => setIsAuthModalOpen(!isAuthModalOpen);
+  const isAuthModalOpen = useSelector((state) => state.app.isAuthModalOpen);
 
   return (
     <Router>
-      <Header toggleAuthModal={toggleAuthModal} />
+      <Header />
 
       <main>
         <Routes>
@@ -28,7 +24,7 @@ export default function App() {
         </Routes>
       </main>
 
-      {isAuthModalOpen && <AuthenticationModal onClose={toggleAuthModal} />}
+      {isAuthModalOpen && <AuthModal />}
     </Router>
   )
 }

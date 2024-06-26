@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BOOKS_TO_LOAD, CATEGORIES } from '../constants';
+import { BOOKS_TO_LOAD, CATEGORIES } from '../../constants';
 
 function constructApiUrl({ title, category, sorting, startIndex }) {
     const basePart = import.meta.env.VITE_API_URL;

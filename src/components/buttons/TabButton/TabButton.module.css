@@ -1,0 +1,26 @@
+.tab_button {
+    flex: 1;
+    padding: 0.625em;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+    font-size: 1.2em;
+    letter-spacing: normal;
+}
+
+.tab_button:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.tab_active {
+    border-bottom: 2px solid var(--color-secondary);
+}
+
+@media (max-width: 480px) {
+    .tab_button {
+        font-size: 1.1em;
+    }
+}

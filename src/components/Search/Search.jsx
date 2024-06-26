@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setCategory, setTitle, setSorting, resetSearchState } from '../../state/booksSlice';
-import { fetchBooks } from '../../state/actions';
+import { setCategory, setTitle, setSorting, resetSearchState } from '../../state/books/booksSlice';
+import { fetchBooks } from '../../state/books/booksActions';
 import { CATEGORIES, SORTING, Paths } from '../../constants';
-import SearchIcon from "../SearchIcon";
+import { Search as SearchIcon } from 'lucide-react';
 import SelectInput from '../SelectInput';
 import styles from './Search.module.css';
 

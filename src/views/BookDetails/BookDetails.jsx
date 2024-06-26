@@ -1,12 +1,12 @@
 import { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchBookById, selectBookById } from '../../state/actions';
+import { fetchBookById, selectBookById } from '../../state/books/booksActions';
 import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
 import styles from './BookDetails.module.css';
 import BasicBookInfo from '../../components/BasicBookInfo';
 import BookCover from '../../components/BookCover';
-import Button from '../../components/Button';
+import ActionButton from '../../components/buttons/ActionButton';
 
 export default function BookDetails() {
     const navigate = useNavigate();
@@ -48,7 +48,7 @@ export default function BookDetails() {
                             {formatDescriptionToParagraphs(book.volumeInfo.description)}
                         </div>}
 
-                        <Button onClick={goBack}>Back</Button>
+                        <ActionButton onClick={goBack}>Back</ActionButton>
                     </section >
                 </>
             )}

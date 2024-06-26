@@ -74,7 +74,20 @@
         height: 21rem;
     }
 
+    .nav {
+        justify-content: flex-start;
+        width: 75vw;
+    }
+
+    .nav>button {
+        padding: 0;
+    }
+
     .heading {
-        font-size: 1.6em;
+        font-size: 1.4em;
+    }
+
+    .heading>a {
+        padding: 0;
     }
 }
