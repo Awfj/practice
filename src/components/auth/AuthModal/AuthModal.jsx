@@ -9,7 +9,7 @@ import { Auth } from '../../../constants';
 
 export default function AuthModal() {
     const dispatch = useDispatch();
-    const [activeTab, setActiveTab] = useState('Sign In');
+    const [activeTab, setActiveTab] = useState(Auth.SIGN_IN);
 
     return (
         <>

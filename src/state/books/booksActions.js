@@ -7,7 +7,7 @@ function constructApiUrl({ title, category, sorting, startIndex }) {
     const categoryPart = category === "all" ? "" : `+subject:${category}`;
     const keyPart = `key=${import.meta.env.VITE_API_KEY}`;
 
-    return `${basePart}volumes?q=${title}${categoryPart}&orderBy=${sorting}&startIndex=${startIndex}&maxResults=${BOOKS_TO_LOAD}&${keyPart}`;
+    return `${basePart}?q=${title}${categoryPart}&orderBy=${sorting}&startIndex=${startIndex}&maxResults=${BOOKS_TO_LOAD}&${keyPart}`;
 }
 
 function filterBooks(items, storedBooks, fetchedBooks, category) {
@@ -52,7 +52,7 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
         while (remainingBooks > 0) {
             const apiUrl = constructApiUrl({ title, category, sorting, startIndex });
             const { data: { items, totalItems } } = await axios.get(apiUrl);
-            
+
             const uniqueBooks = filterBooks(items, storedBooksMap, fetchedBooks, category);
             const count = items.length;
 
@@ -83,7 +83,7 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
 // Fetch a single book by its ID
 export const fetchBookById = createAsyncThunk('books/fetchBookById', async (id, { rejectWithValue }) => {
     try {
-        const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching data: ', error);
