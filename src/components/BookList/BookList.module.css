@@ -1,0 +1,15 @@
+.book_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.8rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    padding: 0 1.3rem;
+}
+
+@media (max-width: 640px) {
+    .book_list {
+        margin-top: 2rem;
+        gap: 2.5rem;
+    }
+}
