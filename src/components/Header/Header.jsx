@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { LogIn, LogOut } from 'lucide-react';
+import { LogIn, LogOut, BookHeart } from 'lucide-react';
 import { Paths } from '../../constants';
 import styles from './Header.module.css';
 import Search from '../Search';
@@ -28,6 +28,7 @@ export default function Header() {
                     <Link to={Paths.HOME}>Search for books</Link>
                 </h1>
 
+                {isLoggedIn && <Link to={Paths.FAVOURITE_BOOKS}><BookHeart /></Link>}
                 <ActionButton onClick={handleAuthAction}>
                     {isLoggedIn ? <LogOut /> : <LogIn />}
                 </ActionButton>

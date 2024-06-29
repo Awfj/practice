@@ -32,10 +32,6 @@
     max-width: 300px;
 }
 
-.details>button {
-    margin-left: auto;
-}
-
 .category {
     margin-bottom: 2.6em;
 }
@@ -57,6 +53,11 @@
     padding: 1.6rem 1rem;
     font-size: 1.1em;
     margin-bottom: 2em;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width: 1200px) {

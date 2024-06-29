@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './BookCard.module.css';
 import { Paths } from '../../constants';
-import BasicBookInfo from '..//BasicBookInfo';
+import BasicBookInfo from '../BasicBookInfo';
 import BookCover from '../BookCover/BookCover';
 
 export default function BookCard({ book }) {

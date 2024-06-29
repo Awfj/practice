@@ -7,6 +7,7 @@ import styles from './BookDetails.module.css';
 import BasicBookInfo from '../../components/BasicBookInfo';
 import BookCover from '../../components/BookCover';
 import ActionButton from '../../components/buttons/ActionButton';
+import FavouriteButton from '../../components/buttons/FavouriteButton';
 
 export default function BookDetails() {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function BookDetails() {
 
     const storedBook = useSelector(state => selectBookById(state, id));
     const fetchedBook = useSelector(state => state.books.fetchedBook);
+    const favourites = useSelector(state => state.books.favourites);
 
     const goBack = useCallback(() => navigate(-1), [navigate]);
 
@@ -33,6 +35,8 @@ export default function BookDetails() {
     // If book is not found in the store, display book details fetched from the API
     const book = storedBook || fetchedBook;
 
+    const isBookFavourite = favourites.some(favBook => favBook.id === book.id);
+
     return (
         <div className={styles.book_details}>
             {book && (
@@ -48,7 +52,10 @@ export default function BookDetails() {
                             {formatDescriptionToParagraphs(book.volumeInfo.description)}
                         </div>}
 
-                        <ActionButton onClick={goBack}>Back</ActionButton>
+                        <div className={styles.buttons}>
+                            <FavouriteButton book={book} isBookfavourite={isBookFavourite} />
+                            <ActionButton onClick={goBack}>Back</ActionButton>
+                        </div>
                     </section >
                 </>
             )}

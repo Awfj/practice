@@ -7,7 +7,7 @@ import ActionButton from '../../buttons/ActionButton';
 import { signIn, signUp } from '../../../state/auth/authActions';
 import { resetError } from '../../../state/auth/authSlice';
 import { closeAuthModal } from '../../../state/app/appSlice';
-import { Auth } from '../../../constants';
+import { Auth } from '@/constants';
 
 export default function AuthForm({ type }) {
     const dispatch = useDispatch();
@@ -45,40 +45,38 @@ export default function AuthForm({ type }) {
     }, [type, dispatch]);
 
     return (
-        <div>
-            <form className={styles.form} onSubmit={type === Auth.SIGN_IN ? handleSignIn : handleSignUp}>
-                <div className={styles.input_fields}>
-                    <div className={styles.input_group}>
-                        <User />
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Email Address'
-                            required
-                            autoComplete="email"
-                        />
-                    </div>
-
-                    <div className={styles.input_group}>
-                        <KeyRound />
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Password'
-                            required
-                            autoComplete={type === Auth.SIGN_IN ? "current-password" : "new-password"}
-                        />
-                    </div>
-
-                    {error && <p className={styles.error}>{error}</p>}
-                    {successMessage && <p className={styles.success_message}>{successMessage}</p>}
+        <form className={styles.form} onSubmit={type === Auth.SIGN_IN ? handleSignIn : handleSignUp}>
+            <div className={styles.input_fields}>
+                <div className={styles.input_group}>
+                    <User />
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='Email Address'
+                        required
+                        autoComplete="email"
+                    />
                 </div>
 
-                <ActionButton disabled={isAuthenticating} type="submit">{type}</ActionButton>
-            </form>
-        </div>
+                <div className={styles.input_group}>
+                    <KeyRound />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Password'
+                        required
+                        autoComplete={type === Auth.SIGN_IN ? "current-password" : "new-password"}
+                    />
+                </div>
+
+                {error && <p className={styles.error}>{error}</p>}
+                {successMessage && <p className={styles.success_message}>{successMessage}</p>}
+            </div>
+
+            <ActionButton disabled={isAuthenticating} type="submit">{type}</ActionButton>
+        </form>
     )
 }
 
