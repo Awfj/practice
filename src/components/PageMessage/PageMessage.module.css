@@ -1,0 +1,12 @@
+.message {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 1.05em;
+    font-size: 1.1em;
+}
+
+@media (max-width: 640px) {
+    .count {
+        font-size: 1em;
+    }
+}
