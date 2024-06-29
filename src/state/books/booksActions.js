@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BOOKS_TO_LOAD, CATEGORIES } from '../../constants';
+import { db } from '../../firebase/firebaseConfig';
+import { doc, setDoc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 
 function constructApiUrl({ title, category, sorting, startIndex }) {
     const basePart = import.meta.env.VITE_API_URL;
@@ -80,7 +82,6 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
     }
 });
 
-// Fetch a single book by its ID
 export const fetchBookById = createAsyncThunk('books/fetchBookById', async (id, { rejectWithValue }) => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/${id}`);
@@ -91,6 +92,48 @@ export const fetchBookById = createAsyncThunk('books/fetchBookById', async (id, 
     }
 });
 
-// Select a book by its ID
 export const selectBookById = (state, bookId) =>
     state.books.books.find(book => book.id === bookId);
+
+export const addBookToFavourites = createAsyncThunk(
+    'books/addFavourite',
+    async (book, { getState, rejectWithValue }) => {
+        try {
+            const userId = getState().auth.user.uid;
+            const docRef = doc(collection(db, 'users', userId, 'favourites'), book.id);
+            await setDoc(docRef, book);
+            return book;
+        } catch (error) {
+            console.error("Failed to add to favourites:", error);
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const removeBookFromFavourites = createAsyncThunk(
+    'books/removeFavourite',
+    async (bookId, { getState }) => {
+        const userId = getState().auth.user.uid;
+        const docRef = doc(collection(db, 'users', userId, 'favourites'), bookId);
+        await deleteDoc(docRef);
+        return bookId;
+    }
+);
+
+export const fetchFavouriteBooks = createAsyncThunk(
+    'books/fetchFavourites',
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const userId = getState().auth.user.uid;
+            const querySnapshot = await getDocs(collection(db, 'users', userId, 'favourites'));
+            const favourites = [];
+            querySnapshot.forEach((doc) => {
+                favourites.push(doc.data());
+            });
+            return favourites;
+        } catch (error) {
+            console.error("Failed to fetch favourites:", error);
+            return rejectWithValue(error.message);
+        }
+    }
+);

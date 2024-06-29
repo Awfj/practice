@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { doSignInWithEmailAndPassword, doCreateUserWithEmailAndPassword, doSignOut } from "../../firebase/auth";
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../firebase/firebaseConfig';
 
 export const signIn = createAsyncThunk(
     'auth/signIn',
@@ -26,6 +28,10 @@ export const signUp = createAsyncThunk(
                 uid: userCredential.user.uid,
                 email: userCredential.user.email,
             };
+
+            const userRef = doc(db, 'users', userData.uid);
+            await setDoc(userRef, { email: userData.email }, { merge: true });
+
             return userData;
         } catch (error) {
             return rejectWithValue(error.message);
