@@ -1,7 +1,7 @@
 import { doc, setDoc } from 'firebase/firestore';
 
-import { doCreateUserWithEmailAndPassword, doSignInWithEmailAndPassword, doSignOut } from "../../firebase/auth";
-import { db } from '../../firebase/firebaseConfig';
+import { doCreateUserWithEmailAndPassword, doSignInWithEmailAndPassword, doSignOut } from "@/firebase/auth";
+import { db } from '@/firebase/firebaseConfig';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 

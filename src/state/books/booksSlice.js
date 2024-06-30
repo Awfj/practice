@@ -1,5 +1,5 @@
-import { BOOKS_TO_LOAD } from '../../constants';
-import { CATEGORIES, SORTING } from '../../constants';
+import { BOOKS_TO_LOAD } from '@/constants';
+import { CATEGORIES, SORTING } from '@/constants';
 
 import { addBookToFavourites, getBookById, fetchBooks, fetchFavouriteBooks, removeBookFromFavourites } from './booksActions';
 import { signOut } from '../auth/authActions';

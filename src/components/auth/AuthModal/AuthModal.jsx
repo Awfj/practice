@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import ActionButton from '../../buttons/ActionButton';
-import TabButton from '../../buttons/TabButton';
-import AuthForm from '../AuthForm';
+import ActionButton from '@/components/buttons/ActionButton';
+import TabButton from '@/components/buttons/TabButton';
+import AuthForm from '@/components/auth/AuthForm';
 
 import styles from './AuthModal.module.css';
 

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore';
 
-import { BOOKS_TO_LOAD, CATEGORIES } from '../../constants';
-import { db } from '../../firebase/firebaseConfig';
+import { BOOKS_TO_LOAD, CATEGORIES } from '@/constants';
+import { db } from '@/firebase/firebaseConfig';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 

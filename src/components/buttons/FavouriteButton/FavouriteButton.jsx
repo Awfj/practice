@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { Heart } from 'lucide-react';
 
-import { addBookToFavourites, removeBookFromFavourites } from '../../../state/books/booksActions';
-import ActionButton from '../ActionButton';
+import { addBookToFavourites, removeBookFromFavourites } from '@/state/books/booksActions';
+import ActionButton from '@/components/buttons/ActionButton';
 
 import styles from './FavouriteButton.module.css';
 

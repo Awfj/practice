@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KeyRound,User } from 'lucide-react';
 import PropTypes from 'prop-types';
 
-import ActionButton from '../../buttons/ActionButton';
+import ActionButton from '@/components/buttons/ActionButton';
 
 import styles from './AuthForm.module.css';
 

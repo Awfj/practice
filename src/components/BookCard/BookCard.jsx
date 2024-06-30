@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import BasicBookInfo from '../BasicBookInfo';
-import BookCover from '../BookCover/BookCover';
+import BasicBookInfo from '@/components/BasicBookInfo';
+import BookCover from '@/components/BookCover';
 
 import styles from './BookCard.module.css';
 

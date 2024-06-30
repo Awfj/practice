@@ -2,7 +2,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Search as SearchIcon } from 'lucide-react';
 
-import SelectInput from '../SelectInput';
+import SelectInput from '@/components/SelectInput';
 
 import styles from './Search.module.css';
 
