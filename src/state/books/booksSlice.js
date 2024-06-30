@@ -1,7 +1,8 @@
 import { BOOKS_TO_LOAD } from '../../constants';
 import { CATEGORIES, SORTING } from '../../constants';
 
-import { addBookToFavourites, fetchBookById, fetchBooks, fetchFavouriteBooks,removeBookFromFavourites } from './booksActions';
+import { addBookToFavourites, getBookById, fetchBooks, fetchFavouriteBooks, removeBookFromFavourites } from './booksActions';
+import { signOut } from '../auth/authActions';
 
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -16,7 +17,7 @@ const initialState = {
     sorting: SORTING[0],
     startIndex: 0,
     loadMore: false,
-    fetchedBook: null,
+    selectedBook: null,
     error: null,
 }
 
@@ -46,12 +47,9 @@ export const booksSlice = createSlice({
         setSorting: (state, action) => {
             state.sorting = action.payload;
         },
-        setFetchedBook: (state, action) => {
-            state.fetchedBook = action.payload;
-        },
-        setError: (state, action) => {
-            state.error = action.payload;
-        },
+        resetSelectedBook: (state) => {
+            state.selectedBook = null;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -80,15 +78,15 @@ export const booksSlice = createSlice({
                 state.error = action.payload;
             })
             // Cases for fetching a single book
-            .addCase(fetchBookById.pending, (state) => {
+            .addCase(getBookById.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchBookById.fulfilled, (state, action) => {
+            .addCase(getBookById.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.fetchedBook = action.payload;
+                state.selectedBook = action.payload;
                 state.error = null;
             })
-            .addCase(fetchBookById.rejected, (state, action) => {
+            .addCase(getBookById.rejected, (state, action) => {
                 console.log(action.payload)
                 state.status = 'failed';
                 state.error = action.payload;
@@ -104,8 +102,12 @@ export const booksSlice = createSlice({
             .addCase(fetchFavouriteBooks.fulfilled, (state, action) => {
                 state.favourites = action.payload;
             })
+            .addCase(signOut.fulfilled, (state) => {
+                state.favourites = [];
+                console.log("signOut")
+            });
     }
 })
 
-export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex, resetSearchState } = booksSlice.actions
+export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex, resetSearchState, resetSelectedBook } = booksSlice.actions
 export default booksSlice.reducer;

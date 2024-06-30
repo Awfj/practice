@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { collection, deleteDoc, doc, getDocs,setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore';
 
 import { BOOKS_TO_LOAD, CATEGORIES } from '../../constants';
 import { db } from '../../firebase/firebaseConfig';
@@ -41,7 +41,6 @@ function filterBooks(items, storedBooks, fetchedBooks, category) {
     return uniqueBooks;
 }
 
-// Fetch books from the Google Books API
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getState, rejectWithValue }) => {
     try {
         const { books, title, sorting, category, cachedBooks } = getState().books;
@@ -84,18 +83,25 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
     }
 });
 
-export const fetchBookById = createAsyncThunk('books/fetchBookById', async (id, { rejectWithValue }) => {
+export const getBookById = createAsyncThunk('books/getBookById', async (id, { getState, rejectWithValue }) => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/${id}`);
-        return response.data;
+        const state = getState();
+        const existingBook = state.books.books.find(book => book.id === id);
+
+        if (existingBook) {
+            return existingBook;
+        }
+        return await fetchBookById(id);
     } catch (error) {
         console.error('Error fetching data: ', error);
         return rejectWithValue('Error fetching book data. Please try again later.');
     }
 });
 
-export const selectBookById = (state, bookId) =>
-    state.books.books.find(book => book.id === bookId);
+const fetchBookById = async (id) => {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/${id}`);
+    return response.data;
+};
 
 export const addBookToFavourites = createAsyncThunk(
     'books/addFavourite',

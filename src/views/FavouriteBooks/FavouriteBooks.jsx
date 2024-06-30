@@ -10,8 +10,10 @@ export default function Favourites() {
     const favourites = useSelector(state => state.books.favourites);
 
     useEffect(() => {
-        dispatch(fetchFavouriteBooks());
-    }, [dispatch]);
+        if (!favourites.length) {
+            dispatch(fetchFavouriteBooks());
+        }
+    }, [dispatch, favourites.length]);
 
     function getMessage(count) {
         if (count === 1) {
@@ -22,6 +24,7 @@ export default function Favourites() {
         return "You haven't added any books to your favourites yet";
     }
 
+    console.log("!!")
     return (
         <div>
             <PageMessage>{getMessage(favourites.length)}</PageMessage>
