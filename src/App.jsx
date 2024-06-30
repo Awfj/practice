@@ -1,15 +1,16 @@
-import 'normalize.css/normalize.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Navigate,Route, Routes } from 'react-router-dom';
 
-import { Paths } from './constants';
-import BookDetails from './views/BookDetails';
-import MainPage from './views/MainPage';
-import ErrorPage from './views/ErrorPage';
-import FavouriteBooks from './views/FavouriteBooks';
 import AuthModal from './components/auth/AuthModal';
 import Header from './components/Header';
 import { userIsLoggedIn } from './state/auth/authSlice';
+import BookDetails from './views/BookDetails';
+import ErrorPage from './views/ErrorPage';
+import FavouriteBooks from './views/FavouriteBooks';
+import MainPage from './views/MainPage';
+import { Paths } from './constants';
+
+import 'normalize.css/normalize.css';
 
 export default function App() {
   const error = useSelector((state) => state.books.error);

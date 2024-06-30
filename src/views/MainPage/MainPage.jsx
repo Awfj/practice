@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { loadMoreBooks } from '../../state/books/booksSlice';
-import { fetchBooks } from '../../state/books/booksActions';
-import styles from './MainPage.module.css';
+
 import BookList from '../../components/BookList';
 import PageMessage from '../../components/PageMessage';
+import { fetchBooks } from '../../state/books/booksActions';
+import { loadMoreBooks } from '../../state/books/booksSlice';
+
+import styles from './MainPage.module.css';
 
 export default function MainPage() {
     const dispatch = useDispatch();

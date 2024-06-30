@@ -1,7 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { BOOKS_TO_LOAD } from '../../constants';
-import { fetchBooks, fetchBookById, addBookToFavourites, removeBookFromFavourites, fetchFavouriteBooks } from './booksActions';
 import { CATEGORIES, SORTING } from '../../constants';
+
+import { addBookToFavourites, fetchBookById, fetchBooks, fetchFavouriteBooks,removeBookFromFavourites } from './booksActions';
+
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     books: [],

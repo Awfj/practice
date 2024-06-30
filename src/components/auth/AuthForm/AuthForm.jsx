@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './AuthForm.module.css';
-import { User, KeyRound } from 'lucide-react';
+import { KeyRound,User } from 'lucide-react';
+import PropTypes from 'prop-types';
+
 import ActionButton from '../../buttons/ActionButton';
-import { signIn, signUp } from '../../../state/auth/authActions';
-import { resetError } from '../../../state/auth/authSlice';
-import { closeAuthModal } from '../../../state/app/appSlice';
+
+import styles from './AuthForm.module.css';
+
 import { Auth } from '@/constants';
+import { closeAuthModal } from '@/state/app/appSlice';
+import { signIn, signUp } from '@/state/auth/authActions';
+import { resetError } from '@/state/auth/authSlice';
 
 export default function AuthForm({ type }) {
     const dispatch = useDispatch();

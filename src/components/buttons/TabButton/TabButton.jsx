@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import styles from './TabButton.module.css';
 
 export default function TabButton({ name, activeTab, setActiveTab }) {

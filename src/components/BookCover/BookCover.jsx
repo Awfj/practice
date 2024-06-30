@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import noImage from '../../assets/no-image.jpg';
+
+import noImage from '@/assets/no-image.jpg';
 
 export default function BookCover({ book }) {
     return (

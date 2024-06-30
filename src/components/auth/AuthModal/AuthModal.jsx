@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import styles from './AuthModal.module.css';
-import { closeAuthModal } from '../../../state/app/appSlice';
-import AuthForm from '../AuthForm';
+
 import ActionButton from '../../buttons/ActionButton';
 import TabButton from '../../buttons/TabButton';
-import { Auth } from '../../../constants';
+import AuthForm from '../AuthForm';
+
+import styles from './AuthModal.module.css';
+
+import { Auth } from '@/constants';
+import { closeAuthModal } from '@/state/app/appSlice';
 
 export default function AuthModal() {
     const dispatch = useDispatch();

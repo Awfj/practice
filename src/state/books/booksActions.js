@@ -1,8 +1,10 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { collection, deleteDoc, doc, getDocs,setDoc } from 'firebase/firestore';
+
 import { BOOKS_TO_LOAD, CATEGORIES } from '../../constants';
 import { db } from '../../firebase/firebaseConfig';
-import { doc, setDoc, deleteDoc, collection, getDocs } from 'firebase/firestore';
+
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 function constructApiUrl({ title, category, sorting, startIndex }) {
     const basePart = import.meta.env.VITE_API_URL;

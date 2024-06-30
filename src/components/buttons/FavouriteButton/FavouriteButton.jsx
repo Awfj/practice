@@ -1,7 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { addBookToFavourites, removeBookFromFavourites } from '../../../state/books/booksActions';
 import { Heart } from 'lucide-react';
+
+import { addBookToFavourites, removeBookFromFavourites } from '../../../state/books/booksActions';
 import ActionButton from '../ActionButton';
+
 import styles from './FavouriteButton.module.css';
 
 export default function FavouriteButton({ book, isBookFavourite = false }) {
