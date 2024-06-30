@@ -4,22 +4,6 @@
     align-items: center;
 }
 
-.count {
-    text-align: center;
-    font-weight: bold;
-    padding-top: 1.05em;
-    font-size: 1.1em;
-}
-
-.book_list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.8rem;
-    justify-content: center;
-    margin-top: 2.5rem;
-    padding: 0 1.3rem;
-}
-
 .loading_top {
     text-align: center;
     font-weight: bold;
@@ -55,15 +39,6 @@
 }
 
 @media (max-width: 640px) {
-    .count {
-        font-size: 1em;
-    }
-
-    .book_list {
-        margin-top: 2rem;
-        gap: 2.5rem;
-    }
-
     .load_more_btn {
         margin-top: 2.5rem;
     }

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import styles from './ActionButton.module.css';
 
 export default function ActionButton({ children, onClick, type = 'button', disabled = false }) {

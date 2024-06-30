@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './AuthForm.module.css';
-import { User, KeyRound } from 'lucide-react';
+import { KeyRound,User } from 'lucide-react';
+import PropTypes from 'prop-types';
+
 import ActionButton from '../../buttons/ActionButton';
-import { signIn, signUp } from '../../../state/auth/authActions';
-import { resetError } from '../../../state/auth/authSlice';
-import { closeAuthModal } from '../../../state/app/appSlice';
-import { Auth } from '../../../constants';
+
+import styles from './AuthForm.module.css';
+
+import { Auth } from '@/constants';
+import { closeAuthModal } from '@/state/app/appSlice';
+import { signIn, signUp } from '@/state/auth/authActions';
+import { resetError } from '@/state/auth/authSlice';
 
 export default function AuthForm({ type }) {
     const dispatch = useDispatch();
@@ -45,40 +48,38 @@ export default function AuthForm({ type }) {
     }, [type, dispatch]);
 
     return (
-        <div>
-            <form className={styles.form} onSubmit={type === Auth.SIGN_IN ? handleSignIn : handleSignUp}>
-                <div className={styles.input_fields}>
-                    <div className={styles.input_group}>
-                        <User />
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Email Address'
-                            required
-                            autoComplete="email"
-                        />
-                    </div>
-
-                    <div className={styles.input_group}>
-                        <KeyRound />
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Password'
-                            required
-                            autoComplete={type === Auth.SIGN_IN ? "current-password" : "new-password"}
-                        />
-                    </div>
-
-                    {error && <p className={styles.error}>{error}</p>}
-                    {successMessage && <p className={styles.success_message}>{successMessage}</p>}
+        <form className={styles.form} onSubmit={type === Auth.SIGN_IN ? handleSignIn : handleSignUp}>
+            <div className={styles.input_fields}>
+                <div className={styles.input_group}>
+                    <User />
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='Email Address'
+                        required
+                        autoComplete="email"
+                    />
                 </div>
 
-                <ActionButton disabled={isAuthenticating} type="submit">{type}</ActionButton>
-            </form>
-        </div>
+                <div className={styles.input_group}>
+                    <KeyRound />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Password'
+                        required
+                        autoComplete={type === Auth.SIGN_IN ? "current-password" : "new-password"}
+                    />
+                </div>
+
+                {error && <p className={styles.error}>{error}</p>}
+                {successMessage && <p className={styles.success_message}>{successMessage}</p>}
+            </div>
+
+            <ActionButton disabled={isAuthenticating} type="submit">{type}</ActionButton>
+        </form>
     )
 }
 

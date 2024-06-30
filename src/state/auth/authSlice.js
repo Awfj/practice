@@ -1,5 +1,6 @@
+import { signIn, signOut,signUp } from './authActions';
+
 import { createSlice } from '@reduxjs/toolkit';
-import { signIn, signUp, signOut } from './authActions';
 
 export const userIsLoggedIn = (state) => state.auth.user !== null;
 

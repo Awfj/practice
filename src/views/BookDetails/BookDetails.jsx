@@ -1,12 +1,15 @@
-import { useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
-import { fetchBookById, selectBookById } from '../../state/books/booksActions';
-import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
-import styles from './BookDetails.module.css';
+import { useCallback,useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import { useNavigate,useParams } from 'react-router-dom';
+
 import BasicBookInfo from '../../components/BasicBookInfo';
 import BookCover from '../../components/BookCover';
 import ActionButton from '../../components/buttons/ActionButton';
+import FavouriteButton from '../../components/buttons/FavouriteButton';
+import { fetchBookById, selectBookById } from '../../state/books/booksActions';
+import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
+
+import styles from './BookDetails.module.css';
 
 export default function BookDetails() {
     const navigate = useNavigate();
@@ -15,6 +18,7 @@ export default function BookDetails() {
 
     const storedBook = useSelector(state => selectBookById(state, id));
     const fetchedBook = useSelector(state => state.books.fetchedBook);
+    const favourites = useSelector(state => state.books.favourites);
 
     const goBack = useCallback(() => navigate(-1), [navigate]);
 
@@ -33,6 +37,8 @@ export default function BookDetails() {
     // If book is not found in the store, display book details fetched from the API
     const book = storedBook || fetchedBook;
 
+    const isBookFavourite = favourites.some(favBook => favBook.id === book.id);
+
     return (
         <div className={styles.book_details}>
             {book && (
@@ -48,7 +54,10 @@ export default function BookDetails() {
                             {formatDescriptionToParagraphs(book.volumeInfo.description)}
                         </div>}
 
-                        <ActionButton onClick={goBack}>Back</ActionButton>
+                        <div className={styles.buttons}>
+                            <FavouriteButton book={book} isBookfavourite={isBookFavourite} />
+                            <ActionButton onClick={goBack}>Back</ActionButton>
+                        </div>
                     </section >
                 </>
             )}

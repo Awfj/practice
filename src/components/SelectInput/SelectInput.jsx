@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import styles from './SelectInput.module.css';
 
 export default function SelectInput({ label, name, value, onChange, options }) {

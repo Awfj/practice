@@ -1,10 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { BOOKS_TO_LOAD } from '../../constants';
-import { fetchBooks, fetchBookById } from './booksActions';
 import { CATEGORIES, SORTING } from '../../constants';
+
+import { addBookToFavourites, fetchBookById, fetchBooks, fetchFavouriteBooks,removeBookFromFavourites } from './booksActions';
+
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     books: [],
+    favourites: [],
     cachedBooks: [],
     status: 'idle',
     total: 0,
@@ -89,7 +92,18 @@ export const booksSlice = createSlice({
                 console.log(action.payload)
                 state.status = 'failed';
                 state.error = action.payload;
-            });
+            })
+            // Cases for adding and removing favourites
+            .addCase(addBookToFavourites.fulfilled, (state, action) => {
+                state.favourites.push(action.payload);
+            })
+            .addCase(removeBookFromFavourites.fulfilled, (state, action) => {
+                state.favourites = state.favourites.filter(book => book.id !== action.payload);
+            })
+            // favourites
+            .addCase(fetchFavouriteBooks.fulfilled, (state, action) => {
+                state.favourites = action.payload;
+            })
     }
 })
 

@@ -1,10 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { loadMoreBooks } from '../../state/books/booksSlice';
-import { fetchBooks } from '../../state/books/booksActions';
-import styles from './BookList.module.css';
-import BookCard from '../../components/BookCard';
 
-export default function BookList() {
+import BookList from '../../components/BookList';
+import PageMessage from '../../components/PageMessage';
+import { fetchBooks } from '../../state/books/booksActions';
+import { loadMoreBooks } from '../../state/books/booksSlice';
+
+import styles from './MainPage.module.css';
+
+export default function MainPage() {
     const dispatch = useDispatch();
     const books = useSelector((state) => state.books.books);
     const total = useSelector((state) => state.books.total);
@@ -18,16 +21,15 @@ export default function BookList() {
 
     return (
         <div className={styles.page}>
-            {(status !== 'loading' || loadMore) && <p className={styles.count}>
-                {total === 0 ? "No books found." : `Found ${total} results. Number of books displayed: ${books.length}`}</p>}
+            {(status !== 'loading' || loadMore) &&
+                <PageMessage>
+                    {total === 0 ? "No books found." : `Found ${total} results. Number of books displayed: ${books.length}`}
+                </PageMessage>
+            }
 
             {!loadMore && status === 'loading' && <div className={styles.loading_top}>Loading...</div>}
             {status !== 'failed' && (
-                <div className={styles.book_list}>
-                    {books.map((book) => (
-                        <BookCard key={book.id} book={book} />
-                    ))}
-                </div>
+                <BookList books={books} />
             )}
 
             {total > 0 && status !== 'failed' &&

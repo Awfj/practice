@@ -22,6 +22,7 @@ export const Paths = {
         DETAILS: `${BOOK_BASE}/:id`,
         getDetailsPath: (id) => `${BOOK_BASE}/${id}`,
     },
+    FAVOURITE_BOOKS: '/favourite-books',
 };
 
 export const Auth = {
