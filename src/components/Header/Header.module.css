@@ -21,18 +21,23 @@
     width: -webkit-fill-available;
 }
 
-.nav>button {
+.auth_actions {
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
+.auth_actions button {
     background-color: transparent;
     color: white;
 
 }
 
-.nav>button:hover,
-.nav>button:focus-visible {
+.auth_actions button:hover,
+.auth_actions button:focus-visible {
     background-color: transparent;
     outline: 2px solid var(--background-secondary);
 }
@@ -42,14 +47,21 @@
 
 }
 
-.heading>a {
+.heading>a,
+.auth_actions>a {
     color: var(--color-tertiary);
     padding: 0 0.5em;
     transition: all 0.08s ease-in-out;
 }
 
+.auth_actions a {
+    padding: 0.32em 0.5em;
+}
+
 .heading>a:hover,
-.heading>a:focus-visible {
+.heading>a:focus-visible,
+.auth_actions>a:hover,
+.auth_actions>a:focus-visible {
     outline: 2px solid var(--background-secondary);
 }
 
