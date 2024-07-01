@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore';
 
 import { BOOKS_TO_LOAD, CATEGORIES } from '@/constants';
 import { db } from '@/firebase/firebaseConfig';
@@ -108,7 +108,8 @@ export const addBookToFavourites = createAsyncThunk(
         try {
             const userId = getState().auth.user.uid;
             const docRef = doc(collection(db, 'users', userId, 'favourites'), book.id);
-            await setDoc(docRef, book);
+            // await setDoc(docRef, book);
+            await setDoc(docRef, { addedAt: serverTimestamp() });
             return book;
         } catch (error) {
             console.error("Failed to add to favourites:", error);
@@ -119,11 +120,16 @@ export const addBookToFavourites = createAsyncThunk(
 
 export const removeBookFromFavourites = createAsyncThunk(
     'books/removeFavourite',
-    async (bookId, { getState }) => {
-        const userId = getState().auth.user.uid;
-        const docRef = doc(collection(db, 'users', userId, 'favourites'), bookId);
-        await deleteDoc(docRef);
-        return bookId;
+    async (bookId, { getState, rejectWithValue }) => {
+        try {
+            const userId = getState().auth.user.uid;
+            const docRef = doc(collection(db, 'users', userId, 'favourites'), bookId);
+            await deleteDoc(docRef);
+            return bookId;
+        } catch (error) {
+            console.error("Failed to remove from favourites:", error);
+            return rejectWithValue(error.message);
+        }
     }
 );
 
@@ -132,11 +138,13 @@ export const fetchFavouriteBooks = createAsyncThunk(
     async (_, { getState, rejectWithValue }) => {
         try {
             const userId = getState().auth.user.uid;
-            const querySnapshot = await getDocs(collection(db, 'users', userId, 'favourites'));
+            const querySnapshot = await getDocs(query(collection(db, 'users', userId, 'favourites'), orderBy('addedAt')));
             const favourites = [];
-            querySnapshot.forEach((doc) => {
-                favourites.push(doc.data());
-            });
+            for (const doc of querySnapshot.docs) {
+                const bookId = doc.id;
+                const bookInfo = getBookById(bookId);
+                favourites.push(bookInfo);
+            }
             return favourites;
         } catch (error) {
             console.error("Failed to fetch favourites:", error);
