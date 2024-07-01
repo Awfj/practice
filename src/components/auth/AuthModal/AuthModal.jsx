@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import ActionButton from '@/components/buttons/ActionButton';
-import TabButton from '@/components/buttons/TabButton';
-import AuthForm from '@/components/auth/AuthForm';
-
 import styles from './AuthModal.module.css';
 
+import AuthForm from '@/components/auth/AuthForm';
+import ActionButton from '@/components/buttons/ActionButton';
+import TabButton from '@/components/buttons/TabButton';
 import { Auth } from '@/constants';
 import { closeAuthModal } from '@/state/app/appSlice';
 

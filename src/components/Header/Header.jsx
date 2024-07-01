@@ -2,14 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BookHeart, LogIn, LogOut } from 'lucide-react';
 
+import styles from './Header.module.css';
+
+import ActionButton from '@/components/buttons/ActionButton';
+import Search from '@/components/Search';
 import { Paths } from '@/constants';
 import { openAuthModal } from '@/state/app/appSlice';
 import { signOut } from '@/state/auth/authActions';
 import { userIsLoggedIn } from '@/state/auth/authSlice';
-import ActionButton from '@/components/buttons/ActionButton';
-import Search from '@/components/Search';
-
-import styles from './Header.module.css';
 
 export default function Header() {
     const dispatch = useDispatch();

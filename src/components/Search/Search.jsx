@@ -2,10 +2,9 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Search as SearchIcon } from 'lucide-react';
 
-import SelectInput from '@/components/SelectInput';
-
 import styles from './Search.module.css';
 
+import SelectInput from '@/components/SelectInput';
 import { CATEGORIES, Paths,SORTING } from '@/constants';
 import { fetchBooks } from '@/state/books/booksActions';
 import { resetSearchState,setCategory, setSorting, setTitle } from '@/state/books/booksSlice';

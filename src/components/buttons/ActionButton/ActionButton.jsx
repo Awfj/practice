@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import validateRestProps from '@/utils/validateRestProps';
 
 import styles from './ActionButton.module.css';
+
+import validateRestProps from '@/utils/validateRestProps';
 
 export default function ActionButton({ children, onClick, type = 'button', disabled = false, ...restProps }) {
     return (

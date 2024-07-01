@@ -2,16 +2,16 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import styles from './BookDetails.module.css';
+
 import BasicBookInfo from '@/components/BasicBookInfo';
 import BookCover from '@/components/BookCover';
 import ActionButton from '@/components/buttons/ActionButton';
 import FavouriteButton from '@/components/buttons/FavouriteButton';
+import { userIsLoggedIn } from '@/state/auth/authSlice';
 import { getBookById } from '@/state/books/booksActions';
 import { resetSelectedBook } from '@/state/books/booksSlice';
 import formatDescriptionToParagraphs from '@/utils/formatDescriptionToParagraphs';
-import { userIsLoggedIn } from '@/state/auth/authSlice';
-
-import styles from './BookDetails.module.css';
 
 export default function BookDetails() {
     const navigate = useNavigate();

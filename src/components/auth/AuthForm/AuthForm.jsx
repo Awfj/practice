@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KeyRound, User } from 'lucide-react';
 import PropTypes from 'prop-types';
 
-import ActionButton from '@/components/buttons/ActionButton';
-
 import styles from './AuthForm.module.css';
 
+import ActionButton from '@/components/buttons/ActionButton';
 import { Auth } from '@/constants';
 import { closeAuthModal } from '@/state/app/appSlice';
 import { signIn, signUp } from '@/state/auth/authActions';
