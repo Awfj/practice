@@ -1,6 +1,6 @@
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { KeyRound,User } from 'lucide-react';
+import { KeyRound, User } from 'lucide-react';
 import PropTypes from 'prop-types';
 
 import ActionButton from '@/components/buttons/ActionButton';
@@ -53,6 +53,7 @@ export default function AuthForm({ type }) {
                 <div className={styles.input_group}>
                     <User />
                     <input
+                        data-testid="email-input"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -65,6 +66,7 @@ export default function AuthForm({ type }) {
                 <div className={styles.input_group}>
                     <KeyRound />
                     <input
+                        data-testid="password-input"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -78,7 +80,12 @@ export default function AuthForm({ type }) {
                 {successMessage && <p className={styles.success_message}>{successMessage}</p>}
             </div>
 
-            <ActionButton disabled={isAuthenticating} type="submit">{type}</ActionButton>
+            <ActionButton
+                data-testid={`sign-${type === Auth.SIGN_IN ? 'in' : 'up'}-btn`}
+                disabled={isAuthenticating}
+                type="submit">
+                {type}
+            </ActionButton>
         </form>
     )
 }

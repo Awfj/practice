@@ -31,8 +31,9 @@ export default function Header() {
                 </h1>
 
                 <div className={styles.auth_actions}>
-                    {isLoggedIn && <Link to={Paths.FAVOURITE_BOOKS}><BookHeart /></Link>}
-                    <ActionButton onClick={handleAuthAction}>
+                    {isLoggedIn && <Link data-testid="favourite-books-link" to={Paths.FAVOURITE_BOOKS}><BookHeart /></Link>}
+
+                    <ActionButton data-testid="auth-btn" onClick={handleAuthAction}>
                         {isLoggedIn ? <LogOut /> : <LogIn />}
                     </ActionButton>
                 </div>

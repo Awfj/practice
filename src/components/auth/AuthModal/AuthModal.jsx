@@ -17,7 +17,7 @@ export default function AuthModal() {
     return (
         <>
             <div className={styles.backdrop}></div>
-            <div className={styles.modal}>
+            <div data-testid="auth-modal" className={styles.modal}>
                 <div className={styles.tabs}>
                     {[Auth.SIGN_IN, Auth.SIGN_UP].map((authType) => (
                         <TabButton
@@ -33,7 +33,7 @@ export default function AuthModal() {
                     <AuthForm type={activeTab} />
                 </div>
 
-                <ActionButton onClick={() => dispatch(closeAuthModal())}>Close</ActionButton>
+                <ActionButton data-testid="auth-close-btn" onClick={() => dispatch(closeAuthModal())}>Close</ActionButton>
             </div>
         </>
     );
