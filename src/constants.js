@@ -29,3 +29,9 @@ export const Auth = {
     SIGN_IN: "Sign In",
     SIGN_UP: "Sign Up",
 };
+
+export const Placement = {
+    CENTER: 'center',
+    TOP: 'top',
+    BOTTOM: 'bottom',
+};

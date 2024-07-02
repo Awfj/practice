@@ -1,0 +1,24 @@
+.loading {
+    text-align: center;
+    font-weight: bold;
+}
+
+.loading_top {
+    padding-top: 1.05em;
+    font-size: 1.1em;
+}
+
+.loading_bottom {
+    padding: 0.32em 0.5em;
+    font-size: 1.3em;
+    margin-top: 2.8rem;
+    margin-bottom: 2em;
+}
+
+.loading_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.3em;
+}

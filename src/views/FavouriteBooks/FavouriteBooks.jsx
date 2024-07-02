@@ -21,10 +21,9 @@ export default function Favourites() {
         } else if (count > 1) {
             return `You have ${count} favourite books`;
         }
-        return "You haven't added any books to your favourites yet";
+        return "Nothing here yet"
     }
 
-    console.log("!!")
     return (
         <div>
             <PageMessage>{getMessage(favourites.length)}</PageMessage>

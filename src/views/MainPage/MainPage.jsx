@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './MainPage.module.css';
 
 import BookList from '@/components/BookList';
+import Loading from '@/components/Loading';
 import PageMessage from '@/components/PageMessage';
+import { Placement } from '@/constants';
 import { fetchBooks } from '@/state/books/booksActions';
 import { loadMoreBooks } from '@/state/books/booksSlice';
 
@@ -23,18 +25,19 @@ export default function MainPage() {
         <div className={styles.page}>
             {(status !== 'loading' || loadMore) &&
                 <PageMessage>
-                    {total === 0 ? "No books found." : `Found ${total} results. Number of books displayed: ${books.length}`}
+                    {total === 0 ? "No books found" : `Found ${total} results. Number of books displayed: ${books.length}`}
                 </PageMessage>
             }
 
-            {!loadMore && status === 'loading' && <div className={styles.loading_top}>Loading...</div>}
+            {!loadMore && status === 'loading' && <Loading placement={Placement.TOP} />}
+
             {status !== 'failed' && (
                 <BookList books={books} />
             )}
 
             {total > 0 && status !== 'failed' &&
                 (loadMore && status === 'loading'
-                    ? <div className={styles.loading_bottom}>Loading...</div>
+                    ? <Loading placement={Placement.BOTTOM} />
                     : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
                 )
             }

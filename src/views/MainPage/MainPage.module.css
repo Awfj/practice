@@ -4,22 +4,6 @@
     align-items: center;
 }
 
-.loading_top {
-    text-align: center;
-    font-weight: bold;
-    padding-top: 1.05em;
-    font-size: 1.1em;
-}
-
-.loading_bottom {
-    text-align: center;
-    font-weight: bold;
-    padding: 0.32em 0.5em;
-    font-size: 1.3em;
-    margin-top: 2.8rem;
-    margin-bottom: 2em;
-}
-
 .load_more_btn {
     margin-bottom: 2em;
     margin-top: 2.8rem;
