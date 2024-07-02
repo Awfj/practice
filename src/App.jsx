@@ -1,5 +1,7 @@
-import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Navigate,Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+import { restoreAuthState } from './state/auth/authActions';
 
 import AuthModal from './components/auth/AuthModal';
 import Header from './components/Header';
@@ -10,12 +12,28 @@ import FavouriteBooks from './views/FavouriteBooks';
 import MainPage from './views/MainPage';
 import { Paths } from './constants';
 
+import Loading from './components/Loading';
+
 import 'normalize.css/normalize.css';
 
 export default function App() {
+  const dispatch = useDispatch();
+
   const error = useSelector((state) => state.books.error);
   const isAuthModalOpen = useSelector((state) => state.app.isAuthModalOpen);
   const isLoggedIn = useSelector(userIsLoggedIn);
+
+  const [authRestored, setAuthRestored] = useState(false);
+
+  useEffect(() => {
+    dispatch(restoreAuthState()).then(() => {
+      setAuthRestored(true);
+    });
+  }, [dispatch]);
+
+  if (!authRestored) {
+    return <Loading />;
+  }
 
   return (
     <Router>
