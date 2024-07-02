@@ -140,9 +140,10 @@ export const fetchFavouriteBooks = createAsyncThunk(
             const userId = getState().auth.user.uid;
             const querySnapshot = await getDocs(query(collection(db, 'users', userId, 'favourites'), orderBy('addedAt')));
             const favourites = [];
+            
             for (const doc of querySnapshot.docs) {
                 const bookId = doc.id;
-                const bookInfo = getBookById(bookId);
+                const bookInfo = await fetchBookById(bookId);
                 favourites.push(bookInfo);
             }
             return favourites;

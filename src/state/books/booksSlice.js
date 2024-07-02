@@ -104,7 +104,6 @@ export const booksSlice = createSlice({
             })
             .addCase(signOut.fulfilled, (state) => {
                 state.favourites = [];
-                console.log("signOut")
             });
     }
 })
