@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Heart } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 import styles from './FavouriteButton.module.css';
 
@@ -21,3 +22,10 @@ export default function FavouriteButton({ book, isBookFavourite = false }) {
         </ActionButton>
     );
 }
+
+FavouriteButton.propTypes = {
+    book: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }).isRequired,
+    isBookFavourite: PropTypes.bool,
+};

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import styles from './PageMessage.module.css';
 
 export default function PageMessage({ children }) {
@@ -7,3 +9,7 @@ export default function PageMessage({ children }) {
         </p>
     )
 }
+
+PageMessage.propTypes = {
+    children: PropTypes.node.isRequired,
+};

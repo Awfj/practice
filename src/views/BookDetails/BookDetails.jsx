@@ -18,7 +18,6 @@ export default function BookDetails() {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    //const storedBook = useSelector(state => selectBookById(state, id));
     const selectedBook = useSelector(state => state.books.selectedBook);
     const favourites = useSelector(state => state.books.favourites);
     const isLoggedIn = useSelector(userIsLoggedIn);
@@ -43,9 +42,6 @@ export default function BookDetails() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
-    // If book is not found in the store, display book details fetched from the API
-    //const book = storedBook || fetchedBook;
 
     const isBookFavourite = selectedBook
         ? favourites.some(favBook => favBook.id === selectedBook.id)

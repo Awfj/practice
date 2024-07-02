@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import styles from './BookList.module.css';
 
 import BookCard from '@/components/BookCard';
@@ -11,3 +13,11 @@ export default function BookList({books}) {
         </div>
     )
 }
+
+BookList.propTypes = {
+  books: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
