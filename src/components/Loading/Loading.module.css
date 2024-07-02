@@ -1,24 +1,41 @@
 .loading {
+    width: 2.325125rem;
+    height: 2.325125rem;
     text-align: center;
     font-weight: bold;
+    animation: rotate 2s linear infinite;
 }
 
-.loading_top {
+.container_top {
     padding-top: 1.05em;
     font-size: 1.1em;
 }
 
-.loading_bottom {
-    padding: 0.32em 0.5em;
+.container_bottom {
     font-size: 1.3em;
     margin-top: 2.8rem;
-    margin-bottom: 2em;
+    margin-bottom: 2.6rem;
 }
 
-.loading_center {
+.container_center {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    font-size: 1.3em;
+    font-size: 3em;
+}
+
+.container_center svg {
+    width: 6rem;
+    height: 6rem;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

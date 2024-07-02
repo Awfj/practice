@@ -1,3 +1,4 @@
+import { LoaderPinwheel } from 'lucide-react';
 import PropTypes from 'prop-types';
 
 import styles from './Loading.module.css';
@@ -10,17 +11,19 @@ export default function Loading({ placement }) {
     let placementClassName;
     switch (placement) {
         case Placement.TOP:
-            placementClassName = styles.loading_top;
+            placementClassName = styles.container_top;
             break;
         case Placement.BOTTOM:
-            placementClassName = styles.loading_bottom;
+            placementClassName = styles.container_bottom;
             break;
         default:
-            placementClassName = styles.loading_center;
+            placementClassName = styles.container_center;
     }
 
     return (
-        <div className={`${styles.loading} ${placementClassName}`}>Loading...</div>
+        <div className={`${placementClassName}`}>
+            <LoaderPinwheel className={styles.loading} />
+        </div>
     )
 }
 
