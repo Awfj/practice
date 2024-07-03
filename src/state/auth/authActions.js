@@ -7,23 +7,32 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const restoreAuthState = createAsyncThunk(
     'auth/restoreAuthState',
-    async (_, { dispatch }) => {
-        return new Promise((resolve, reject) => {
-            const unsubscribe = onAuthStateChanged(auth, user => {
-                if (user) {
-                    const userData = {
-                        uid: user.uid,
-                        email: user.email,
-                    };
-                    dispatch(signIn.fulfilled(userData));
-                    resolve(userData);
-                } else {
-                    dispatch(signOut.fulfilled({}));
-                    resolve({});
-                }
-                unsubscribe();
-            }, reject);
-        });
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const state = getState();
+            if (state.auth.user) {
+                return state.auth.user;
+            }
+
+            const user = await new Promise((resolve, reject) => {
+                const unsubscribe = onAuthStateChanged(auth, (user) => {
+                    unsubscribe();
+                    if (user) {
+                        const userData = {
+                            uid: user.uid,
+                            email: user.email,
+                        };
+                        resolve(userData);
+                    } else {
+                        resolve(null);
+                    }
+                }, reject);
+            });
+
+            return user;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
     }
 );
 
