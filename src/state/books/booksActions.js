@@ -108,7 +108,6 @@ export const addBookToFavourites = createAsyncThunk(
         try {
             const userId = getState().auth.user.uid;
             const docRef = doc(collection(db, 'users', userId, 'favourites'), book.id);
-            // await setDoc(docRef, book);
             await setDoc(docRef, { addedAt: serverTimestamp() });
             return book;
         } catch (error) {

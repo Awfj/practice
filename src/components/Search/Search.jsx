@@ -31,18 +31,20 @@ export default function Search() {
         <form className={styles.search} onSubmit={handleSearch}>
             <div className={styles.input_group}>
                 <input
+                    data-testid="search-input"
                     name="title"
                     type="text"
                     value={title}
                     onChange={(e) => dispatch(setTitle(e.target.value))}
                     placeholder="Enter book title" />
-                <button aria-label="Search Books" type="submit">
+                <button data-testid="search-button" aria-label="Search Books" type="submit">
                     <SearchIcon />
                 </button>
             </div>
 
             <div className={styles.select_group}>
                 <SelectInput
+                    data-testid="category-select"
                     label="Categories"
                     name="category"
                     value={category}

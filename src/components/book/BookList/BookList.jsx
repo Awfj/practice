@@ -6,7 +6,7 @@ import BookCard from '@/components/book/BookCard';
 
 export default function BookList({books}) {
     return (
-        <div className={styles.book_list}>
+        <div data-testid="book-list" className={styles.book_list}>
             {books.map((book) => (
                 <BookCard key={book.id} book={book} />
             ))}

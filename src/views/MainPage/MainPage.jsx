@@ -38,7 +38,7 @@ export default function MainPage() {
             {total > 0 && status !== 'failed' &&
                 (loadMore && status === 'loading'
                     ? <LoadingIndicator placement={Placement.BOTTOM} />
-                    : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
+                    : <button data-testid="load-more-btn" className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
                 )
             }
         </div>
