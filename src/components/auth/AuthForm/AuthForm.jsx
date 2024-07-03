@@ -9,39 +9,35 @@ import ActionButton from '@/components/buttons/ActionButton';
 import { Auth } from '@/constants';
 import { closeAuthModal } from '@/state/app/appSlice';
 import { signIn, signUp } from '@/state/auth/authActions';
-import { resetError } from '@/state/auth/authSlice';
+import { resetError, userIsLoggedIn } from '@/state/auth/authSlice';
+import formatFirebaseError from '@/utils/formatFirebaseError';
 
 export default function AuthForm({ type }) {
     const dispatch = useDispatch();
     const { isAuthenticating, error } = useSelector((state) => state.auth);
+    const isLoggedIn = useSelector(userIsLoggedIn);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSignIn = async (e) => {
+    const handleSignIn = (e) => {
         e.preventDefault();
-        try {
-            await dispatch(signIn({ email, password })).unwrap();
-            dispatch(closeAuthModal());
-        } catch (error) {
-            console.error('Sign in failed:', error);
-        }
+        dispatch(signIn({ email, password }));
     };
 
-    const handleSignUp = async (e) => {
+    const handleSignUp = (e) => {
         e.preventDefault();
-        try {
-            await dispatch(signUp({ email, password })).unwrap();
-            setSuccessMessage("Account created successfully. You've been signed in.");
-        } catch (error) {
-            console.error('Sign up failed:', error);
-        }
+        dispatch(signUp({ email, password }));
     };
 
     useEffect(() => {
+        if (isLoggedIn) {
+            dispatch(closeAuthModal());
+        }
+    }, [dispatch, isLoggedIn]);
+
+    useEffect(() => {
         dispatch(resetError());
-        setSuccessMessage('');
         setEmail('');
         setPassword('');
     }, [type, dispatch]);
@@ -75,8 +71,7 @@ export default function AuthForm({ type }) {
                     />
                 </div>
 
-                {error && <p className={styles.error}>{error}</p>}
-                {successMessage && <p className={styles.success_message}>{successMessage}</p>}
+                {error && <p className={styles.error}>{formatFirebaseError(error)}</p>}
             </div>
 
             <ActionButton
