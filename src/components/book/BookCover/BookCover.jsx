@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+import styles from './BookCover.module.css';
+
 import noImage from '@/assets/no-image.jpg';
 
 export default function BookCover({ book }) {
@@ -7,6 +9,7 @@ export default function BookCover({ book }) {
         <img
             src={book.volumeInfo.imageLinks?.thumbnail ?? noImage}
             alt={book.volumeInfo.title}
+            className={styles.cover}
         />
     )
 }
