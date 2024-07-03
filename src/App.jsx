@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import AuthModal from './components/auth/AuthModal';
 import Header from './components/Header';
-import Loading from './components/Loading';
+import LoadingIndicator from './components/LoadingIndicator';
 import { restoreAuthState } from './state/auth/authActions';
 import { userIsLoggedIn } from './state/auth/authSlice';
 import BookDetails from './views/BookDetails';
@@ -31,7 +31,7 @@ export default function App() {
   }, [dispatch]);
 
   if (!authRestored) {
-    return <Loading />;
+    return <LoadingIndicator />;
   }
 
   return (
