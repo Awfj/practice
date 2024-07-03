@@ -53,6 +53,9 @@ export const booksSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(signOut.fulfilled, (state) => {
+                state.favourites = [];
+            })
             // Cases for fetching books
             .addCase(fetchBooks.pending, (state) => {
                 state.status = 'loading';
@@ -87,7 +90,6 @@ export const booksSlice = createSlice({
                 state.error = null;
             })
             .addCase(getBookById.rejected, (state, action) => {
-                console.log(action.payload)
                 state.status = 'failed';
                 state.error = action.payload;
             })
@@ -98,13 +100,18 @@ export const booksSlice = createSlice({
             .addCase(removeBookFromFavourites.fulfilled, (state, action) => {
                 state.favourites = state.favourites.filter(book => book.id !== action.payload);
             })
-            // favourites
+            // Cases for fetching favourite books
+            .addCase(fetchFavouriteBooks.pending, (state) => {
+                state.status = 'loading';
+            })
             .addCase(fetchFavouriteBooks.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 state.favourites = action.payload;
             })
-            .addCase(signOut.fulfilled, (state) => {
-                state.favourites = [];
-            });
+            .addCase(fetchFavouriteBooks.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
+            })
     }
 })
 
