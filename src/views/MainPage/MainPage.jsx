@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './MainPage.module.css';
 
 import BookList from '@/components/BookList';
-import Loading from '@/components/Loading';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import PageMessage from '@/components/PageMessage';
 import { Placement } from '@/constants';
 import { fetchBooks } from '@/state/books/booksActions';
@@ -29,7 +29,7 @@ export default function MainPage() {
                 </PageMessage>
             }
 
-            {!loadMore && status === 'loading' && <Loading placement={Placement.TOP} />}
+            {!loadMore && status === 'loading' && <LoadingIndicator placement={Placement.TOP} />}
 
             {status !== 'failed' && (
                 <BookList books={books} />
@@ -37,7 +37,7 @@ export default function MainPage() {
 
             {total > 0 && status !== 'failed' &&
                 (loadMore && status === 'loading'
-                    ? <Loading placement={Placement.BOTTOM} />
+                    ? <LoadingIndicator placement={Placement.BOTTOM} />
                     : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
                 )
             }

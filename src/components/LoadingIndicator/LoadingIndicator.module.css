@@ -1,8 +1,8 @@
 .loading {
     width: 2.325125rem;
     height: 2.325125rem;
-    text-align: center;
     font-weight: bold;
+    margin: 0 auto;
     animation: rotate 2s linear infinite;
 }
 

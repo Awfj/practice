@@ -1,12 +1,12 @@
 import { LoaderPinwheel } from 'lucide-react';
 import PropTypes from 'prop-types';
 
-import styles from './Loading.module.css';
+import styles from './LoadingIndicator.module.css';
 
 import { Placement } from '@/constants';
 
 
-export default function Loading({ placement }) {
+export default function LoadingIndicator({ placement }) {
 
     let placementClassName;
     switch (placement) {
@@ -27,6 +27,6 @@ export default function Loading({ placement }) {
     )
 }
 
-Loading.propTypes = {
+LoadingIndicator.propTypes = {
     placement: PropTypes.oneOf([Placement.TOP, Placement.CENTER, Placement.BOTTOM]),
 };
