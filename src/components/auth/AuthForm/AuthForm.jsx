@@ -42,6 +42,14 @@ export default function AuthForm({ type }) {
         setPassword('');
     }, [type, dispatch]);
 
+    useEffect(() => {
+        dispatch(resetError());
+    }, [email, dispatch]);
+
+    useEffect(() => {
+        dispatch(resetError());
+    }, [password, dispatch]);
+
     return (
         <form className={styles.form} onSubmit={type === Auth.SIGN_IN ? handleSignIn : handleSignUp}>
             <div className={styles.input_fields}>
