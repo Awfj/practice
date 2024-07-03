@@ -9,7 +9,7 @@ import BookCover from '@/components/book/BookCover';
 import ActionButton from '@/components/buttons/ActionButton';
 import FavouriteButton from '@/components/buttons/FavouriteButton';
 import { userIsLoggedIn } from '@/state/auth/authSlice';
-import { getBookById } from '@/state/books/booksActions';
+import { fetchFavouriteBooks, getBookById } from '@/state/books/booksActions';
 import { resetSelectedBook } from '@/state/books/booksSlice';
 import formatDescriptionToParagraphs from '@/utils/formatDescriptionToParagraphs';
 
@@ -42,6 +42,13 @@ export default function BookDetails() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    // If user is logged in and favourites are not loaded, fetch them
+    useEffect(() => {
+        if (isLoggedIn && favourites.length === 0) {
+            dispatch(fetchFavouriteBooks());
+        }
+    }, [isLoggedIn, favourites, dispatch]);
 
     const isBookFavourite = selectedBook
         ? favourites.some(favBook => favBook.id === selectedBook.id)
