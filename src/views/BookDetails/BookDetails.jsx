@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './BookDetails.module.css';
 
-import BasicBookInfo from '@/components/BasicBookInfo';
-import BookCover from '@/components/BookCover';
+import BasicBookInfo from '@/components/book/BasicBookInfo';
+import BookCover from '@/components/book/BookCover';
 import ActionButton from '@/components/buttons/ActionButton';
 import FavouriteButton from '@/components/buttons/FavouriteButton';
 import { userIsLoggedIn } from '@/state/auth/authSlice';

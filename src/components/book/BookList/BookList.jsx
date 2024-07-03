@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import styles from './BookList.module.css';
 
-import BookCard from '@/components/BookCard';
+import BookCard from '@/components/book/BookCard';
 
 export default function BookList({books}) {
     return (

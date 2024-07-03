@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './MainPage.module.css';
 
-import BookList from '@/components/BookList';
+import BookList from '@/components/book/BookList';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import PageMessage from '@/components/PageMessage';
 import { Placement } from '@/constants';

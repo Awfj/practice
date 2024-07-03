@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import styles from './BookCard.module.css';
 
-import BasicBookInfo from '@/components/BasicBookInfo';
-import BookCover from '@/components/BookCover';
+import BasicBookInfo from '@/components/book/BasicBookInfo';
+import BookCover from '@/components/book/BookCover';
 import { Paths } from '@/constants';
 
 export default function BookCard({ book }) {
