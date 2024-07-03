@@ -6,6 +6,7 @@
     width: 21.875rem;
     background-color: white;
     padding: 1.875rem;
+    padding-top: calc(1.875rem - var(--tab-button-padding));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     display: flex;

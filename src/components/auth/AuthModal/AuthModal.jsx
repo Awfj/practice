@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import ActionButton from '../../buttons/ActionButton';
-import TabButton from '../../buttons/TabButton';
-import AuthForm from '../AuthForm';
-
 import styles from './AuthModal.module.css';
 
+import AuthForm from '@/components/auth/AuthForm';
+import ActionButton from '@/components/buttons/ActionButton';
+import TabButton from '@/components/buttons/TabButton';
 import { Auth } from '@/constants';
 import { closeAuthModal } from '@/state/app/appSlice';
 
@@ -17,7 +16,7 @@ export default function AuthModal() {
     return (
         <>
             <div className={styles.backdrop}></div>
-            <div className={styles.modal}>
+            <div data-testid="auth-modal" className={styles.modal}>
                 <div className={styles.tabs}>
                     {[Auth.SIGN_IN, Auth.SIGN_UP].map((authType) => (
                         <TabButton
@@ -33,7 +32,7 @@ export default function AuthModal() {
                     <AuthForm type={activeTab} />
                 </div>
 
-                <ActionButton onClick={() => dispatch(closeAuthModal())}>Close</ActionButton>
+                <ActionButton data-testid="auth-close-btn" onClick={() => dispatch(closeAuthModal())}>Close</ActionButton>
             </div>
         </>
     );

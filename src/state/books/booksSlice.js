@@ -1,8 +1,9 @@
-import { BOOKS_TO_LOAD } from '../../constants';
-import { CATEGORIES, SORTING } from '../../constants';
+import { signOut } from '../auth/authActions';
 
-import { addBookToFavourites, fetchBookById, fetchBooks, fetchFavouriteBooks,removeBookFromFavourites } from './booksActions';
+import { addBookToFavourites, fetchBooks, fetchFavouriteBooks, getBookById, removeBookFromFavourites } from './booksActions';
 
+import { BOOKS_TO_LOAD } from '@/constants';
+import { CATEGORIES, SORTING } from '@/constants';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
     sorting: SORTING[0],
     startIndex: 0,
     loadMore: false,
-    fetchedBook: null,
+    selectedBook: null,
     error: null,
 }
 
@@ -46,15 +47,15 @@ export const booksSlice = createSlice({
         setSorting: (state, action) => {
             state.sorting = action.payload;
         },
-        setFetchedBook: (state, action) => {
-            state.fetchedBook = action.payload;
-        },
-        setError: (state, action) => {
-            state.error = action.payload;
-        },
+        resetSelectedBook: (state) => {
+            state.selectedBook = null;
+        }
     },
     extraReducers: (builder) => {
         builder
+            .addCase(signOut.fulfilled, (state) => {
+                state.favourites = [];
+            })
             // Cases for fetching books
             .addCase(fetchBooks.pending, (state) => {
                 state.status = 'loading';
@@ -80,16 +81,15 @@ export const booksSlice = createSlice({
                 state.error = action.payload;
             })
             // Cases for fetching a single book
-            .addCase(fetchBookById.pending, (state) => {
+            .addCase(getBookById.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchBookById.fulfilled, (state, action) => {
+            .addCase(getBookById.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.fetchedBook = action.payload;
+                state.selectedBook = action.payload;
                 state.error = null;
             })
-            .addCase(fetchBookById.rejected, (state, action) => {
-                console.log(action.payload)
+            .addCase(getBookById.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload;
             })
@@ -100,12 +100,20 @@ export const booksSlice = createSlice({
             .addCase(removeBookFromFavourites.fulfilled, (state, action) => {
                 state.favourites = state.favourites.filter(book => book.id !== action.payload);
             })
-            // favourites
+            // Cases for fetching favourite books
+            .addCase(fetchFavouriteBooks.pending, (state) => {
+                state.status = 'loading';
+            })
             .addCase(fetchFavouriteBooks.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 state.favourites = action.payload;
+            })
+            .addCase(fetchFavouriteBooks.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
             })
     }
 })
 
-export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex, resetSearchState } = booksSlice.actions
+export const { setTitle, setCategory, setSorting, loadMoreBooks, incrementStartIndex, resetSearchState, resetSelectedBook } = booksSlice.actions
 export default booksSlice.reducer;

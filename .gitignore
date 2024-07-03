@@ -23,4 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
-.temp
+
+# Testing
+cypress.env.json
+e2e.js
+cypress/fixtures
+cypress/downloads

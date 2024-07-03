@@ -1,4 +1,4 @@
-import { signIn, signOut,signUp } from './authActions';
+import { restoreAuthState, signIn, signOut,signUp } from './authActions';
 
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -55,6 +55,20 @@ export const authSlice = createSlice({
             })
             .addCase(signOut.rejected, (state, action) => {
                 state.error = action.payload;
+            })
+            // Cases for restore auth state
+            .addCase(restoreAuthState.pending, (state) => {
+                state.isAuthenticating = true;
+                state.error = '';
+            })
+            .addCase(restoreAuthState.fulfilled, (state, action) => {
+                state.user = action.payload;
+                state.isAuthenticating = false;
+                state.error = '';
+            })
+            .addCase(restoreAuthState.rejected, (state, action) => {
+                state.isAuthenticating = false;
+                state.error = action.payload || 'Failed to restore auth state';
             });
     },
 });

@@ -1,48 +1,43 @@
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { KeyRound,User } from 'lucide-react';
+import { KeyRound, User } from 'lucide-react';
 import PropTypes from 'prop-types';
-
-import ActionButton from '../../buttons/ActionButton';
 
 import styles from './AuthForm.module.css';
 
+import ActionButton from '@/components/buttons/ActionButton';
 import { Auth } from '@/constants';
 import { closeAuthModal } from '@/state/app/appSlice';
 import { signIn, signUp } from '@/state/auth/authActions';
-import { resetError } from '@/state/auth/authSlice';
+import { resetError, userIsLoggedIn } from '@/state/auth/authSlice';
+import formatFirebaseError from '@/utils/formatFirebaseError';
 
 export default function AuthForm({ type }) {
     const dispatch = useDispatch();
     const { isAuthenticating, error } = useSelector((state) => state.auth);
+    const isLoggedIn = useSelector(userIsLoggedIn);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSignIn = async (e) => {
+    const handleSignIn = (e) => {
         e.preventDefault();
-        try {
-            await dispatch(signIn({ email, password })).unwrap();
-            dispatch(closeAuthModal());
-        } catch (error) {
-            console.error('Sign in failed:', error);
-        }
+        dispatch(signIn({ email, password }));
     };
 
-    const handleSignUp = async (e) => {
+    const handleSignUp = (e) => {
         e.preventDefault();
-        try {
-            await dispatch(signUp({ email, password })).unwrap();
-            setSuccessMessage("Account created successfully. You've been signed in.");
-        } catch (error) {
-            console.error('Sign up failed:', error);
-        }
+        dispatch(signUp({ email, password }));
     };
 
     useEffect(() => {
+        if (isLoggedIn) {
+            dispatch(closeAuthModal());
+        }
+    }, [dispatch, isLoggedIn]);
+
+    useEffect(() => {
         dispatch(resetError());
-        setSuccessMessage('');
         setEmail('');
         setPassword('');
     }, [type, dispatch]);
@@ -53,6 +48,7 @@ export default function AuthForm({ type }) {
                 <div className={styles.input_group}>
                     <User />
                     <input
+                        data-testid="email-input"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -65,6 +61,7 @@ export default function AuthForm({ type }) {
                 <div className={styles.input_group}>
                     <KeyRound />
                     <input
+                        data-testid="password-input"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -74,11 +71,15 @@ export default function AuthForm({ type }) {
                     />
                 </div>
 
-                {error && <p className={styles.error}>{error}</p>}
-                {successMessage && <p className={styles.success_message}>{successMessage}</p>}
+                {error && <p className={styles.error}>{formatFirebaseError(error)}</p>}
             </div>
 
-            <ActionButton disabled={isAuthenticating} type="submit">{type}</ActionButton>
+            <ActionButton
+                data-testid={`sign-${type === Auth.SIGN_IN ? 'in' : 'up'}-btn`}
+                disabled={isAuthenticating}
+                type="submit">
+                {type}
+            </ActionButton>
         </form>
     )
 }

@@ -1,62 +1,70 @@
-import { useCallback,useEffect } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
-import { useNavigate,useParams } from 'react-router-dom';
-
-import BasicBookInfo from '../../components/BasicBookInfo';
-import BookCover from '../../components/BookCover';
-import ActionButton from '../../components/buttons/ActionButton';
-import FavouriteButton from '../../components/buttons/FavouriteButton';
-import { fetchBookById, selectBookById } from '../../state/books/booksActions';
-import formatDescriptionToParagraphs from '../../utils/formatDescriptionToParagraphs';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './BookDetails.module.css';
+
+import BasicBookInfo from '@/components/book/BasicBookInfo';
+import BookCover from '@/components/book/BookCover';
+import ActionButton from '@/components/buttons/ActionButton';
+import FavouriteButton from '@/components/buttons/FavouriteButton';
+import { userIsLoggedIn } from '@/state/auth/authSlice';
+import { getBookById } from '@/state/books/booksActions';
+import { resetSelectedBook } from '@/state/books/booksSlice';
+import formatDescriptionToParagraphs from '@/utils/formatDescriptionToParagraphs';
 
 export default function BookDetails() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const storedBook = useSelector(state => selectBookById(state, id));
-    const fetchedBook = useSelector(state => state.books.fetchedBook);
+    const selectedBook = useSelector(state => state.books.selectedBook);
     const favourites = useSelector(state => state.books.favourites);
+    const isLoggedIn = useSelector(userIsLoggedIn);
 
     const goBack = useCallback(() => navigate(-1), [navigate]);
 
     // Fetch book details from Google Books API
     useEffect(() => {
-        if (!storedBook) {
-            dispatch(fetchBookById(id));
+        if (!selectedBook) {
+            dispatch(getBookById(id));
         }
-    }, [id, storedBook, dispatch]);
+    }, [id, selectedBook, dispatch]);
+
+    // Reset selected book when component unmounts
+    useEffect(() => {
+        return () => {
+            dispatch(resetSelectedBook());
+        };
+    }, [dispatch]);
 
     // Scroll to top of the page when component mounts
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    // If book is not found in the store, display book details fetched from the API
-    const book = storedBook || fetchedBook;
-
-    const isBookFavourite = favourites.some(favBook => favBook.id === book.id);
+    const isBookFavourite = selectedBook
+        ? favourites.some(favBook => favBook.id === selectedBook.id)
+        : false;
 
     return (
         <div className={styles.book_details}>
-            {book && (
+            {selectedBook && (
                 <>
                     <div className={styles.cover}>
-                        <BookCover book={book} />
+                        <BookCover book={selectedBook} />
                     </div>
 
                     <section className={styles.details}>
-                        <BasicBookInfo book={book} styles={styles} />
+                        <BasicBookInfo book={selectedBook} styles={styles} />
 
-                        {book.volumeInfo.description && <div className={styles.description}>
-                            {formatDescriptionToParagraphs(book.volumeInfo.description)}
+                        {selectedBook.volumeInfo.description && <div className={styles.description}>
+                            {formatDescriptionToParagraphs(selectedBook.volumeInfo.description)}
                         </div>}
 
                         <div className={styles.buttons}>
-                            <FavouriteButton book={book} isBookfavourite={isBookFavourite} />
                             <ActionButton onClick={goBack}>Back</ActionButton>
+                            {isLoggedIn && <FavouriteButton book={selectedBook} isBookFavourite={isBookFavourite} />}
                         </div>
                     </section >
                 </>

@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 
 import styles from './SelectInput.module.css';
 
-export default function SelectInput({ label, name, value, onChange, options }) {
+import validateRestProps from '@/utils/validateRestProps';
+
+export default function SelectInput({ label, name, value, onChange, options, ...restProps }) {
     return (
         <label className={styles.label}>
             {label}
-            <select className={styles.select} name={name} value={value} onChange={onChange}>
+            <select {...validateRestProps(restProps)} className={styles.select} name={name} value={value} onChange={onChange}>
                 {options.map((option) => (
                     <option key={option} value={option}>{option}</option>
                 ))}

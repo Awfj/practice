@@ -1,0 +1,41 @@
+.loading {
+    width: 2.325125rem;
+    height: 2.325125rem;
+    font-weight: bold;
+    margin: 0 auto;
+    animation: rotate 2s linear infinite;
+}
+
+.container_top {
+    padding-top: 1.05em;
+    font-size: 1.1em;
+}
+
+.container_bottom {
+    font-size: 1.3em;
+    margin-top: 2.8rem;
+    margin-bottom: 2.6rem;
+}
+
+.container_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 3em;
+}
+
+.container_center svg {
+    width: 6rem;
+    height: 6rem;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

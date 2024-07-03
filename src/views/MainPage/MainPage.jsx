@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import BookList from '../../components/BookList';
-import PageMessage from '../../components/PageMessage';
-import { fetchBooks } from '../../state/books/booksActions';
-import { loadMoreBooks } from '../../state/books/booksSlice';
-
 import styles from './MainPage.module.css';
+
+import BookList from '@/components/book/BookList';
+import LoadingIndicator from '@/components/LoadingIndicator';
+import PageMessage from '@/components/PageMessage';
+import { Placement } from '@/constants';
+import { fetchBooks } from '@/state/books/booksActions';
+import { loadMoreBooks } from '@/state/books/booksSlice';
 
 export default function MainPage() {
     const dispatch = useDispatch();
@@ -23,19 +25,20 @@ export default function MainPage() {
         <div className={styles.page}>
             {(status !== 'loading' || loadMore) &&
                 <PageMessage>
-                    {total === 0 ? "No books found." : `Found ${total} results. Number of books displayed: ${books.length}`}
+                    {total === 0 ? "No books found" : `Found ${total} results. Number of books displayed: ${books.length}`}
                 </PageMessage>
             }
 
-            {!loadMore && status === 'loading' && <div className={styles.loading_top}>Loading...</div>}
+            {!loadMore && status === 'loading' && <LoadingIndicator placement={Placement.TOP} />}
+
             {status !== 'failed' && (
                 <BookList books={books} />
             )}
 
             {total > 0 && status !== 'failed' &&
                 (loadMore && status === 'loading'
-                    ? <div className={styles.loading_bottom}>Loading...</div>
-                    : <button className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
+                    ? <LoadingIndicator placement={Placement.BOTTOM} />
+                    : <button data-testid="load-more-btn" className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
                 )
             }
         </div>

@@ -10,11 +10,16 @@
   --background-tertiary: #000;
 
   --header-height: 16.9375rem;
+  --tab-button-padding: 0.625em;
 }
 
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 body {

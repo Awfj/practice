@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { collection, deleteDoc, doc, getDocs,setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore';
 
-import { BOOKS_TO_LOAD, CATEGORIES } from '../../constants';
-import { db } from '../../firebase/firebaseConfig';
-
+import { BOOKS_TO_LOAD, CATEGORIES } from '@/constants';
+import { db } from '@/firebase/firebaseConfig';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 function constructApiUrl({ title, category, sorting, startIndex }) {
@@ -41,7 +40,6 @@ function filterBooks(items, storedBooks, fetchedBooks, category) {
     return uniqueBooks;
 }
 
-// Fetch books from the Google Books API
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getState, rejectWithValue }) => {
     try {
         const { books, title, sorting, category, cachedBooks } = getState().books;
@@ -84,18 +82,25 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { getSt
     }
 });
 
-export const fetchBookById = createAsyncThunk('books/fetchBookById', async (id, { rejectWithValue }) => {
+export const getBookById = createAsyncThunk('books/getBookById', async (id, { getState, rejectWithValue }) => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/${id}`);
-        return response.data;
+        const state = getState();
+        const existingBook = state.books.books.find(book => book.id === id);
+
+        if (existingBook) {
+            return existingBook;
+        }
+        return await fetchBookById(id);
     } catch (error) {
         console.error('Error fetching data: ', error);
         return rejectWithValue('Error fetching book data. Please try again later.');
     }
 });
 
-export const selectBookById = (state, bookId) =>
-    state.books.books.find(book => book.id === bookId);
+const fetchBookById = async (id) => {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/${id}`);
+    return response.data;
+};
 
 export const addBookToFavourites = createAsyncThunk(
     'books/addFavourite',
@@ -103,7 +108,7 @@ export const addBookToFavourites = createAsyncThunk(
         try {
             const userId = getState().auth.user.uid;
             const docRef = doc(collection(db, 'users', userId, 'favourites'), book.id);
-            await setDoc(docRef, book);
+            await setDoc(docRef, { addedAt: serverTimestamp() });
             return book;
         } catch (error) {
             console.error("Failed to add to favourites:", error);
@@ -114,11 +119,16 @@ export const addBookToFavourites = createAsyncThunk(
 
 export const removeBookFromFavourites = createAsyncThunk(
     'books/removeFavourite',
-    async (bookId, { getState }) => {
-        const userId = getState().auth.user.uid;
-        const docRef = doc(collection(db, 'users', userId, 'favourites'), bookId);
-        await deleteDoc(docRef);
-        return bookId;
+    async (bookId, { getState, rejectWithValue }) => {
+        try {
+            const userId = getState().auth.user.uid;
+            const docRef = doc(collection(db, 'users', userId, 'favourites'), bookId);
+            await deleteDoc(docRef);
+            return bookId;
+        } catch (error) {
+            console.error("Failed to remove from favourites:", error);
+            return rejectWithValue(error.message);
+        }
     }
 );
 
@@ -127,11 +137,14 @@ export const fetchFavouriteBooks = createAsyncThunk(
     async (_, { getState, rejectWithValue }) => {
         try {
             const userId = getState().auth.user.uid;
-            const querySnapshot = await getDocs(collection(db, 'users', userId, 'favourites'));
+            const querySnapshot = await getDocs(query(collection(db, 'users', userId, 'favourites'), orderBy('addedAt')));
             const favourites = [];
-            querySnapshot.forEach((doc) => {
-                favourites.push(doc.data());
-            });
+            
+            for (const doc of querySnapshot.docs) {
+                const bookId = doc.id;
+                const bookInfo = await fetchBookById(bookId);
+                favourites.push(bookInfo);
+            }
             return favourites;
         } catch (error) {
             console.error("Failed to fetch favourites:", error);
