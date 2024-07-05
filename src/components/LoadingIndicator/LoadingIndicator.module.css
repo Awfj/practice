@@ -7,14 +7,12 @@
 }
 
 .container_top {
-    padding-top: 1.05em;
     font-size: 1.1em;
 }
 
 .container_bottom {
     font-size: 1.3em;
     margin-top: 2.8rem;
-    margin-bottom: 2.6rem;
 }
 
 .container_center {
@@ -37,5 +35,17 @@
 
     to {
         transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 640px) {
+    .container_bottom {
+        margin-top: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container_bottom {
+        margin-top: 2rem;
     }
 }

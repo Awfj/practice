@@ -43,8 +43,11 @@
 }
 
 @media (max-width: 960px) {
+    .input_group {
+        width: 100%;
+    }
     .input_group input {
-        width: 60vw;
+        width: 100%;
     }
     
     .select_group {
@@ -56,17 +59,11 @@
 @media (max-width: 640px) {
     .input_group input {
         font-size: 1.3em;
-        width: 60vw;
     }
 }
 
 @media (max-width: 480px) {
-    .input_group {
-        width: 75vw;
-    }
-
     .input_group input {
-        width: 62vw;
         padding: 0.32em 0.5em;
     }
 }

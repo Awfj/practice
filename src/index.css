@@ -56,13 +56,6 @@ svg {
   height: 1.9rem;
 }
 
-.error {
-  font-weight: bold;
-  padding-top: 1.05em;
-  font-size: 1.1em;
-}
-
-
 @media (max-width: 640px) {
   :root {
     --background-image: url('./assets//background-sm.jpg');

@@ -1,9 +1,18 @@
-.card {
+.container {
     width: 18.125rem;
     display: flex;
     flex-direction: column;
-    padding: 1.5em;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: white;
+}
+
+.card {
     background-color: var(--background-primary);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    height: 100%;
     transition: all 0.08s ease-in-out;
 }
 
@@ -11,6 +20,13 @@
 .card:focus-visible {
     outline: 2px solid var(--background-tertiary);
     background-color: var(--background-secondary);
+}
+
+.container>button {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .card>img {
@@ -37,7 +53,7 @@
 }
 
 @media (max-width: 1200px) {
-    .card {
+    .container {
         width: 17rem;
     }
 
@@ -46,15 +62,13 @@
     }
 }
 
-@media (max-width: 960px)  {
-    .card {
+@media (max-width: 960px) {
+    .container {
         width: 16rem;
     }
 }
 
-@media (max-width: 640px) {
-    
-}
+@media (max-width: 640px) {}
 
 @media (max-width: 480px) {
     .title {

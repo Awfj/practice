@@ -1,8 +1,8 @@
 .message {
     text-align: center;
     font-weight: bold;
-    padding-top: 1.05em;
     font-size: 1.1em;
+    max-width: 31.25rem;
 }
 
 @media (max-width: 640px) {

@@ -4,6 +4,7 @@ import styles from './MainPage.module.css';
 
 import BookList from '@/components/book/BookList';
 import LoadingIndicator from '@/components/LoadingIndicator';
+import PageContainer from '@/components/PageContainer';
 import PageMessage from '@/components/PageMessage';
 import { Placement } from '@/constants';
 import { fetchBooks } from '@/state/books/booksActions';
@@ -22,16 +23,16 @@ export default function MainPage() {
     };
 
     return (
-        <div className={styles.page}>
+        <PageContainer>
             {(status !== 'loading' || loadMore) &&
                 <PageMessage>
-                    {total === 0 ? "Nothing here yet" : `Found ${total} results. Number of books displayed: ${books.length}`}
+                    {total === 0 ? "Use the search bar above to explore a wide range of books!" : `Found ${total} results. Number of books displayed: ${books.length}`}
                 </PageMessage>
             }
 
             {!loadMore && status === 'loading' && <LoadingIndicator placement={Placement.TOP} />}
 
-            {status !== 'failed' && (
+            {total > 0 && status !== 'failed' && (
                 <BookList books={books} />
             )}
 
@@ -41,6 +42,6 @@ export default function MainPage() {
                     : <button data-testid="load-more-btn" className={styles.load_more_btn} onClick={handleLoadMore}>Load More</button>
                 )
             }
-        </div>
+        </PageContainer>
     )
 }
