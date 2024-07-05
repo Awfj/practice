@@ -25,7 +25,7 @@ export default function MainPage() {
         <div className={styles.page}>
             {(status !== 'loading' || loadMore) &&
                 <PageMessage>
-                    {total === 0 ? "No books found" : `Found ${total} results. Number of books displayed: ${books.length}`}
+                    {total === 0 ? "Nothing here yet" : `Found ${total} results. Number of books displayed: ${books.length}`}
                 </PageMessage>
             }
 
