@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import BookList from '@/components/book/BookList';
 import LoadingIndicator from '@/components/LoadingIndicator';
+import PageContainer from '@/components/PageContainer';
 import PageMessage from '@/components/PageMessage';
 import { Placement } from '@/constants';
 import { fetchFavouriteBooks } from '@/state/books/booksActions';
@@ -28,7 +29,7 @@ export default function Favourites() {
     }
 
     return (
-        <div>
+        <PageContainer>
             {status === 'loading' ? (
                 <LoadingIndicator placement={Placement.TOP} />
             ) : (
@@ -37,6 +38,6 @@ export default function Favourites() {
                     <BookList books={favourites} />
                 </>
             )}
-        </div>
+        </PageContainer>
     );
 }

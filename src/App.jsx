@@ -7,6 +7,7 @@ import Header from './components/Header';
 import LoadingIndicator from './components/LoadingIndicator';
 import { restoreAuthState } from './state/auth/authActions';
 import { userIsLoggedIn } from './state/auth/authSlice';
+import { fetchFavouriteBooks } from './state/books/booksActions';
 import BookDetails from './views/BookDetails';
 import ErrorPage from './views/ErrorPage';
 import FavouriteBooks from './views/FavouriteBooks';
@@ -20,15 +21,24 @@ export default function App() {
 
   const error = useSelector((state) => state.books.error);
   const isAuthModalOpen = useSelector((state) => state.app.isAuthModalOpen);
+  const favourites = useSelector(state => state.books.favourites);
   const isLoggedIn = useSelector(userIsLoggedIn);
 
   const [authRestored, setAuthRestored] = useState(false);
 
+  // Restore auth state on app load
   useEffect(() => {
     dispatch(restoreAuthState()).then(() => {
       setAuthRestored(true);
     });
   }, [dispatch]);
+
+  // If user is logged in and favourites are not loaded, fetch them
+  useEffect(() => {
+    if (isLoggedIn && favourites.length === 0) {
+      dispatch(fetchFavouriteBooks());
+    }
+  }, [isLoggedIn, favourites, dispatch]);
 
   if (!authRestored) {
     return <LoadingIndicator />;
