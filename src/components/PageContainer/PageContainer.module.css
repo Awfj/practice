@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.155rem 1.3rem 2.6rem;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-bottom: 2rem;
+    }
+}
